@@ -1,6 +1,7 @@
 import { Component, FormEvent } from 'react';
 import Header from '../components/header/header';
 import Main from '../components/main/result';
+import Loading from '../components/loading/loading';
 interface Planet {
   name: string;
   climate: string;
@@ -12,6 +13,7 @@ interface Planet {
 interface PageState {
   inputValue: string;
   searchResults: Planet[];
+  isLoading: boolean;
 }
 
 // Компонент Header
@@ -19,6 +21,7 @@ export default class Page extends Component<unknown, PageState> {
   state: PageState = {
     inputValue: '',
     searchResults: [],
+    isLoading: false,
   };
 
   handleInput = (event: FormEvent) => {
@@ -32,6 +35,7 @@ export default class Page extends Component<unknown, PageState> {
   };
 
   async getData(searchTerm: string) {
+    this.setState({ isLoading: true });
     const response = await fetch(
       `https://swapi.dev/api/planets/?page=1&search=${searchTerm}`
     );
@@ -39,7 +43,7 @@ export default class Page extends Component<unknown, PageState> {
     this.setState({ searchResults: data.results });
     localStorage.setItem('inputValue', searchTerm);
     localStorage.setItem('searchResults', JSON.stringify(data.results));
-    return data;
+    return this.setState({ isLoading: false });
   }
 
   componentDidMount() {
@@ -63,7 +67,11 @@ export default class Page extends Component<unknown, PageState> {
           onInput={this.handleInput}
           onClick={this.handleClick}
         />
-        <Main results={this.state.searchResults} />
+        {this.state.isLoading ? (
+          <Loading />
+        ) : (
+          <Main results={this.state.searchResults} />
+        )}
       </>
     );
   }

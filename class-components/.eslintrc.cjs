@@ -35,6 +35,7 @@ module.exports = {
   ],
   rules: {
     'prettier/prettier': 'error',
+    'react-compiler/react-compiler': 'error',
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
     'react/prop-types': 'off',

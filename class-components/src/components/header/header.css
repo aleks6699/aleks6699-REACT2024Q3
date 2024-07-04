@@ -2,12 +2,7 @@
   display: flex;
   justify-content: center;
   gap: 10px;
-  margin-bottom: 10px;
   background-color: #cd9595;
   width: 100%;
   padding: 10px 0;
-  position: absolute;
-  left: 0;
-  right: 0;
 }
-
