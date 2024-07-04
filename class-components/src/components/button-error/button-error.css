@@ -1,18 +1,20 @@
-.button {
+.button-error{
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
   border-radius: 10px;
   outline: none;
   color: white;
   background-color: #856666;
   border: none;
   transition: all 0.7s linear;
-  font-size: 15px;
-
-  
+  font-size: 25px;
+  width: 100px;
+  height: 60px;
 }
 
-
-.button:hover {
+.button-error:hover {
   cursor: pointer;
-  color:#856666;
+  color:#291f1f;
   background-color: rgb(235, 213, 18);
 }

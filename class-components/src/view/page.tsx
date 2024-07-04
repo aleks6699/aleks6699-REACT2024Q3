@@ -2,6 +2,7 @@ import { Component, FormEvent } from 'react';
 import Header from '../components/header/header';
 import Main from '../components/main/result';
 import Loading from '../components/loading/loading';
+import ButtonError from '../components/button-error/button-error';
 interface Planet {
   name: string;
   climate: string;
@@ -14,6 +15,7 @@ interface PageState {
   inputValue: string;
   searchResults: Planet[];
   isLoading: boolean;
+  hasError: boolean;
 }
 
 // Компонент Header
@@ -22,6 +24,7 @@ export default class Page extends Component<unknown, PageState> {
     inputValue: '',
     searchResults: [],
     isLoading: false,
+    hasError: false,
   };
 
   handleInput = (event: FormEvent) => {
@@ -33,11 +36,16 @@ export default class Page extends Component<unknown, PageState> {
   handleClick = async () => {
     return await this.getData(this.state.inputValue);
   };
+  throwError = () => {
+    this.setState({
+      hasError: true,
+    });
+  };
 
   async getData(searchTerm: string) {
     this.setState({ isLoading: true });
     const response = await fetch(
-      `https://swapi.dev/api/planets/?page=1&search=${searchTerm}`
+      `https://swapi.dev/api/planets/?page=1&search=${searchTerm.trim()}`
     );
     const data = await response.json();
     this.setState({ searchResults: data.results });
@@ -60,6 +68,9 @@ export default class Page extends Component<unknown, PageState> {
   }
 
   render() {
+    if (this.state.hasError) {
+      throw new Error('Why did you break everything?)');
+    }
     return (
       <>
         <Header
@@ -72,6 +83,8 @@ export default class Page extends Component<unknown, PageState> {
         ) : (
           <Main results={this.state.searchResults} />
         )}
+
+        <ButtonError onClick={this.throwError} />
       </>
     );
   }
