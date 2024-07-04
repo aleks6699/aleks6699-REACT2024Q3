@@ -1,16 +1,10 @@
 import { Component } from 'react';
 import './App.css';
-import Header from './components/header/header';
-import Main from './components/main/main';
+import Page from './view/page';
 
 class App extends Component {
   render() {
-    return (
-      <>
-        <Header />
-        <Main />
-      </>
-    );
+    return <Page />;
   }
 }
 
