@@ -1,4 +1,4 @@
-.button-error{
+.button-error {
   position: absolute;
   bottom: 10px;
   right: 20px;
@@ -15,6 +15,6 @@
 
 .button-error:hover {
   cursor: pointer;
-  color:#291f1f;
+  color: #291f1f;
   background-color: rgb(235, 213, 18);
 }
