@@ -1,15 +1,11 @@
+import React, { useState } from 'react';
 import './main.css';
-import NotFound from '../not-found/not-found';
-import Pagination from '../pagination/pagination';
-import { useState } from 'react';
+import NotFound from '../components/not-found/not-found';
 import { Outlet } from 'react-router-dom';
-import { useLoader } from '../../hooks/useLoader';
-import Loading from '../loading/loading';
-import { ResponseList } from '../../view/page';
-import {
-  addParamsSearch,
-  removeParamsSearch,
-} from '../../utils/controlsParamsSearch';
+import { useLoader } from '../hooks/useLoader';
+import Loading from '../components/loading/loading';
+import { ResponseList } from '../view/page';
+import Pagination from '../components/pagination/pagination';
 
 interface MainProps {
   results: ResponseList;
@@ -21,13 +17,13 @@ export function Main({ results, clickPagination, activePage }: MainProps) {
   const [personDetails, setPersonDetails] = useState({});
   const { isLoading, setIsLoading } = useLoader();
   const totalPages = Math.ceil(results.count / 10).toString();
+
   const dataPerson = async (id: string) => {
     setIsLoading(true);
     try {
       if (!id) return;
       const response = await fetch(`https://swapi.dev/api/people/${id}/`);
       const data = await response.json();
-
       return data;
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -35,11 +31,6 @@ export function Main({ results, clickPagination, activePage }: MainProps) {
       setIsLoading(false);
     }
   };
-  function closeDetailsCard(event: React.MouseEvent): void {
-    event.stopPropagation();
-    setPersonDetails({});
-    removeParamsSearch('details');
-  }
 
   async function clickCard(event: React.MouseEvent<HTMLButtonElement>) {
     const target = event.currentTarget as HTMLElement;
@@ -48,20 +39,17 @@ export function Main({ results, clickPagination, activePage }: MainProps) {
 
     const person = await dataPerson(id);
     setPersonDetails({ ...person, id });
-    addParamsSearch(id, 'details');
+    const params = new URLSearchParams(window.location.search);
+    params.set('details', id);
+    const newUrl = `${window.location.pathname}?${params.toString()}`;
+    window.history.replaceState({}, '', newUrl);
     return person;
   }
 
   return (
     <main className="main">
       <div className="wrapper">
-        <div
-          className="results"
-          onClick={(event) => closeDetailsCard(event)}
-          aria-hidden="true"
-          role="button"
-          tabIndex={0}
-        >
+        <div className="results">
           {results.count === 0 ? (
             <NotFound />
           ) : (

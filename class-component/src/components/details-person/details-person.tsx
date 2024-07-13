@@ -1,6 +1,7 @@
 import './details-person.css';
 import { useOutletContext, useSearchParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { removeParamsSearch } from '../../utils/controlsParamsSearch';
 
 interface Person {
   id: string;
@@ -33,10 +34,7 @@ export default function DetailsPerson() {
 
   const handleClick = () => {
     setShowDetails(!showDetails);
-    const params = new URLSearchParams(window.location.search);
-    params.delete('details');
-    const newUrl = `${window.location.pathname}?${params.toString()}`;
-    window.history.replaceState({}, '', newUrl);
+    removeParamsSearch('details');
   };
 
   useEffect(() => {

@@ -1,6 +1,6 @@
 module.exports = {
   root: true,
-  env: { browser: true, es2020: true, node: true },
+  env: { browser: true, es2020: true, node: true, jest: true },
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
@@ -8,8 +8,9 @@ module.exports = {
     'plugin:jsx-a11y/recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
+    'plugin:jest/recommended',
   ],
-  ignorePatterns: ['dist', '.eslintrc.cjs'],
+  ignorePatterns: ['dist', '.eslintrc.cjs', 'jest.config.js', 'jest.setup.js'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaFeatures: {
@@ -32,6 +33,7 @@ module.exports = {
     '@typescript-eslint',
     'react-refresh',
     'react-compiler',
+    'jest',
   ],
   rules: {
     'prettier/prettier': 'error',
