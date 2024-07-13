@@ -1,0 +1,27 @@
+.results {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+  width: 100%;
+  align-self: flex-start;
+}
+main {
+  width: inherit;
+  margin-top: 60px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px;
+  max-width: 1200px;
+  text-align: center;
+}
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.result-item {
+  text-align: center;
+  border: 2px solid #cd9595;
+  padding: 10px;
+}
