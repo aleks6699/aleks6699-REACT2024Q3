@@ -8,8 +8,7 @@
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "noEmit": true,
-    "jsx": "react-jsx",
-    "esModuleInterop": true
+    "jsx": "react-jsx"
   },
-  "include": ["vite.config.ts", "./src", "jest.config.cjs", "./jest.setup.js"]
+  "include": ["vite.config.ts", "./src"]
 }

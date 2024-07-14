@@ -30,7 +30,7 @@ interface People {
 export interface ResponseList {
   count: number;
   next: string | null;
-  previous: string | null;
+  previous: null;
   results: People[];
 }
 

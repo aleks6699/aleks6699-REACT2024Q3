@@ -15,6 +15,10 @@ const router = createBrowserRouter([
         path: '/',
         element: <DetailsPerson />,
       },
+
+      {
+        path: '/*',
+      },
     ],
   },
 ]);

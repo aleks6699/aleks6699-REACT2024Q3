@@ -11,7 +11,7 @@ import {
   removeParamsSearch,
 } from '../../utils/controlsParamsSearch';
 
-interface MainProps {
+export interface MainProps {
   results: ResponseList;
   clickPagination?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   activePage?: string;
