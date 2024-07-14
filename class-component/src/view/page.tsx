@@ -92,18 +92,6 @@ export function Page() {
     setSearchParams({ search: inputValue, page: newPage });
   };
 
-  // useEffect(() => {
-  //   localStorage.setItem('inputValue', searchTerm || '');
-  //   const savedValue = localStorage.getItem('inputValue');
-  //   setInputValue(savedValue || '');
-  //   setSearchParams({ search: savedValue || '', page: currentPage || '1' });
-  //   getData(currentPage || '1', searchTerm || '');
-
-  //   return () => {
-  //     localStorage.setItem('inputValue', searchTerm || '');
-  //   };
-  // }, [currentPage, getData]);
-
   return (
     <>
       <Header

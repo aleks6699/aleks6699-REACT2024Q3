@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1720930204050" clover="3.2.0">
-  <project timestamp="1720930204051" name="All files">
+<coverage generated="1720966705817" clover="3.2.0">
+  <project timestamp="1720966705817" name="All files">
     <metrics statements="369" coveredstatements="232" conditionals="37" coveredconditionals="28" methods="28" coveredmethods="18" elements="434" coveredelements="278" complexity="0" loc="369" ncloc="369" packages="13" files="15" classes="15"/>
     <package name="src">
       <metrics statements="33" coveredstatements="6" conditionals="2" coveredconditionals="1" methods="2" coveredmethods="1"/>
@@ -148,11 +148,11 @@
       <file name="button.tsx" path="C:\Users\Liubov\Desktop\aleks6699-REACT2024Q3\class-component\src\components\header\button\button.tsx">
         <metrics statements="6" coveredstatements="6" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
-        <line num="6" count="5" type="cond" truecount="1" falsecount="0"/>
-        <line num="7" count="5" type="stmt"/>
-        <line num="8" count="5" type="stmt"/>
-        <line num="10" count="5" type="stmt"/>
-        <line num="12" count="5" type="stmt"/>
+        <line num="6" count="7" type="cond" truecount="1" falsecount="0"/>
+        <line num="7" count="7" type="stmt"/>
+        <line num="8" count="7" type="stmt"/>
+        <line num="10" count="7" type="stmt"/>
+        <line num="12" count="7" type="stmt"/>
       </file>
     </package>
     <package name="src.components.header.input">
@@ -161,16 +161,16 @@
         <metrics statements="12" coveredstatements="12" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
-        <line num="9" count="5" type="cond" truecount="1" falsecount="0"/>
-        <line num="10" count="5" type="stmt"/>
-        <line num="11" count="5" type="stmt"/>
-        <line num="12" count="5" type="stmt"/>
-        <line num="13" count="5" type="stmt"/>
-        <line num="14" count="5" type="stmt"/>
-        <line num="15" count="5" type="stmt"/>
-        <line num="16" count="5" type="stmt"/>
-        <line num="17" count="5" type="stmt"/>
-        <line num="19" count="5" type="stmt"/>
+        <line num="9" count="9" type="cond" truecount="1" falsecount="0"/>
+        <line num="10" count="9" type="stmt"/>
+        <line num="11" count="9" type="stmt"/>
+        <line num="12" count="9" type="stmt"/>
+        <line num="13" count="9" type="stmt"/>
+        <line num="14" count="9" type="stmt"/>
+        <line num="15" count="9" type="stmt"/>
+        <line num="16" count="9" type="stmt"/>
+        <line num="17" count="9" type="stmt"/>
+        <line num="19" count="9" type="stmt"/>
       </file>
     </package>
     <package name="src.components.loading">
@@ -437,22 +437,22 @@
         <line num="91" count="0" type="stmt"/>
         <line num="92" count="0" type="stmt"/>
         <line num="93" count="0" type="stmt"/>
-        <line num="107" count="2" type="stmt"/>
-        <line num="108" count="2" type="stmt"/>
-        <line num="109" count="2" type="stmt"/>
-        <line num="110" count="2" type="stmt"/>
+        <line num="95" count="2" type="stmt"/>
+        <line num="96" count="2" type="stmt"/>
+        <line num="97" count="2" type="stmt"/>
+        <line num="98" count="2" type="stmt"/>
+        <line num="99" count="2" type="stmt"/>
+        <line num="100" count="2" type="stmt"/>
+        <line num="101" count="2" type="stmt"/>
+        <line num="102" count="2" type="cond" truecount="1" falsecount="0"/>
+        <line num="103" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="105" count="1" type="stmt"/>
+        <line num="106" count="1" type="stmt"/>
+        <line num="107" count="1" type="stmt"/>
+        <line num="108" count="1" type="stmt"/>
+        <line num="109" count="1" type="stmt"/>
         <line num="111" count="2" type="stmt"/>
-        <line num="112" count="2" type="stmt"/>
         <line num="113" count="2" type="stmt"/>
-        <line num="114" count="2" type="cond" truecount="1" falsecount="0"/>
-        <line num="115" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="117" count="1" type="stmt"/>
-        <line num="118" count="1" type="stmt"/>
-        <line num="119" count="1" type="stmt"/>
-        <line num="120" count="1" type="stmt"/>
-        <line num="121" count="1" type="stmt"/>
-        <line num="123" count="2" type="stmt"/>
-        <line num="125" count="2" type="stmt"/>
       </file>
     </package>
   </project>
