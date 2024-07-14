@@ -16,6 +16,7 @@ describe('useLocalStorageAndFetch', () => {
     };
     const mockStorage = {
       getItem: (key: string) => localStorageMock.getItem(key),
+
       setItem: (key: string, value: string) =>
         localStorageMock.setItem(key, value),
     };

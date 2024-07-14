@@ -1,2 +1,2 @@
-cd class-components
+cd class-component
 npm run test

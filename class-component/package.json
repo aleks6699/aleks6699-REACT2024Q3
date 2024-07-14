@@ -11,7 +11,7 @@
     "preview": "vite preview",
     "format:fix": "prettier --write .",
     "format": "prettier --check .",
-    "prepare": "cd .. && husky class-components/.husky",
+    "prepare": "cd .. && husky class-component/.husky",
     "test": "vitest run --coverage"
   },
   "dependencies": {

@@ -17,9 +17,7 @@ describe('controlsParamsSearch Utils', () => {
 
     window.history.replaceState = vi.fn();
 
-
     addParamsSearch('456', 'newParam');
-
 
     expect(window.history.replaceState).toHaveBeenCalledWith(
       {},
@@ -27,13 +25,11 @@ describe('controlsParamsSearch Utils', () => {
       '/?existingParam=123&newParam=456'
     );
 
-
     window.location = originalLocation;
     window.history.replaceState = originalReplaceState;
   });
 
   it('removes parameters correctly', () => {
-
     const originalLocation = { ...window.location };
     const originalReplaceState = window.history.replaceState;
 
@@ -43,19 +39,15 @@ describe('controlsParamsSearch Utils', () => {
       search: '?existingParam=123&removeParam=456',
     };
 
-
     window.history.replaceState = vi.fn();
 
-
     removeParamsSearch('removeParam');
-
 
     expect(window.history.replaceState).toHaveBeenCalledWith(
       {},
       '',
       '/?existingParam=123'
     );
-
 
     window.location = originalLocation;
     window.history.replaceState = originalReplaceState;
