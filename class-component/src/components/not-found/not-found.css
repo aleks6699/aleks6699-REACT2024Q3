@@ -11,7 +11,7 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  background: url('./vider.jpg') no-repeat center center / contain;
+  background: url('../vider.jpg') no-repeat center center / contain;
   background-color: #021a36;
   z-index: 4;
 }
