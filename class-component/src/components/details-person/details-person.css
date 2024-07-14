@@ -1,6 +1,10 @@
 .details-person {
   position: relative;
-  display: inline-block;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #555050;
+  height: 100%;
+  color: white;
 }
 .cross {
   position: absolute;
@@ -8,4 +12,7 @@
   right: 0;
   top: 2px;
   cursor: pointer;
+  background-color: transparent;
+  outline: none;
+  border: none;
 }
