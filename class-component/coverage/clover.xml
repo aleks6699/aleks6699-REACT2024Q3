@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1720929782981" clover="3.2.0">
-  <project timestamp="1720929782981" name="All files">
-    <metrics statements="369" coveredstatements="222" conditionals="35" coveredconditionals="26" methods="28" coveredmethods="16" elements="432" coveredelements="264" complexity="0" loc="369" ncloc="369" packages="13" files="15" classes="15"/>
+<coverage generated="1720930204050" clover="3.2.0">
+  <project timestamp="1720930204051" name="All files">
+    <metrics statements="369" coveredstatements="232" conditionals="37" coveredconditionals="28" methods="28" coveredmethods="18" elements="434" coveredelements="278" complexity="0" loc="369" ncloc="369" packages="13" files="15" classes="15"/>
     <package name="src">
       <metrics statements="33" coveredstatements="6" conditionals="2" coveredconditionals="1" methods="2" coveredmethods="1"/>
       <file name="App.tsx" path="C:\Users\Liubov\Desktop\aleks6699-REACT2024Q3\class-component\src\App.tsx">
@@ -355,21 +355,21 @@
       </file>
     </package>
     <package name="src.utils">
-      <metrics statements="12" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
+      <metrics statements="12" coveredstatements="12" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
       <file name="controlsParamsSearch.tsx" path="C:\Users\Liubov\Desktop\aleks6699-REACT2024Q3\class-component\src\utils\controlsParamsSearch.tsx">
-        <metrics statements="12" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="0" type="stmt"/>
-        <line num="3" count="0" type="stmt"/>
-        <line num="4" count="0" type="stmt"/>
-        <line num="5" count="0" type="stmt"/>
-        <line num="6" count="0" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
-        <line num="9" count="0" type="stmt"/>
-        <line num="10" count="0" type="stmt"/>
-        <line num="11" count="0" type="stmt"/>
-        <line num="12" count="0" type="stmt"/>
-        <line num="13" count="0" type="stmt"/>
+        <metrics statements="12" coveredstatements="12" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+        <line num="1" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="8" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
       </file>
     </package>
     <package name="src.view">
