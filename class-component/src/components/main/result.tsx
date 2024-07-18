@@ -10,6 +10,7 @@ import {
   addParamsSearch,
   removeParamsSearch,
 } from '../../utils/controlsParamsSearch';
+import useTheme from '../../hooks/useTheme';
 
 export interface MainProps {
   results: ResponseList;
@@ -20,6 +21,7 @@ export interface MainProps {
 export function Main({ results, clickPagination, activePage }: MainProps) {
   const [personDetails, setPersonDetails] = useState({});
   const { isLoading, setIsLoading } = useLoader();
+  const { theme } = useTheme();
   const totalPages = Math.ceil(results.count / 10).toString();
   const dataPerson = async (id: string) => {
     setIsLoading(true);
@@ -53,8 +55,8 @@ export function Main({ results, clickPagination, activePage }: MainProps) {
   }
 
   return (
-    <main className="main">
-      <div className="wrapper">
+    <main className={`main ${theme ? 'light' : 'dark'}`}>
+      <div className="wrapper-main">
         <div
           className="results"
           onClick={(event) => closeDetailsCard(event)}

@@ -16,3 +16,8 @@
   outline: none;
   border: none;
 }
+
+.main.light .details-person {
+  background-color: #e9e6e6;
+  color: #180404;
+}

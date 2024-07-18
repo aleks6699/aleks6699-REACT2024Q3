@@ -5,6 +5,7 @@ import Loading from '../components/loading/loading';
 import { useLoader } from '../hooks/useLoader';
 import { useSearchParams } from 'react-router-dom';
 import useLocalStorageAndFetch from '../hooks/useLocalStorageAndFetch';
+import useTheme from '../hooks/useTheme';
 
 interface People {
   url: string;
@@ -36,6 +37,7 @@ export interface ResponseList {
 
 //
 export function Page() {
+  const { theme } = useTheme();
   const [inputValue, setInputValue] = useState<string>('');
   const { isLoading, setIsLoading } = useLoader();
   const [searchParams, setSearchParams] = useSearchParams({
@@ -58,7 +60,6 @@ export function Page() {
           `https://swapi.dev/api/people/?search=${searchTerm.trim()}&page=${currentPage}`
         );
         const data = await response.json();
-        console.log(data);
         setSearchResults(data);
         return true;
       } catch (error) {
@@ -93,7 +94,7 @@ export function Page() {
   };
 
   return (
-    <>
+    <div className={`wrapper ${theme ? 'light' : 'dark'}`}>
       <Header
         inputValue={inputValue}
         onInput={handleInput}
@@ -108,6 +109,6 @@ export function Page() {
           clickPagination={clickPagination}
         />
       )}
-    </>
+    </div>
   );
 }

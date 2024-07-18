@@ -1,18 +1,4 @@
-#root {
-  width: 100%;
-  display: flex;
-  justify-content: start;
-  flex-direction: column;
-  align-items: center;
-  min-height: 100vh;
-  margin: 0 auto;
-  background: radial-gradient(
-    circle,
-    rgba(2, 0, 36, 1) 0%,
-    rgb(165, 165, 179) 25%,
-    rgb(0, 7, 8) 100%
-  );
-}
+
 
 html {
   box-sizing: border-box;
