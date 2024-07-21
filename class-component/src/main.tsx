@@ -5,7 +5,10 @@ import App from './App';
 import NotFound from './components/not-found/not-found';
 import DetailsPerson from './components/details-person/details-person';
 import { ThemeProvider } from './context/context';
+import { Provider } from 'react-redux';
+import { store } from './store/store';
 
+// Определите маршруты
 const router = createBrowserRouter([
   {
     path: '/',
@@ -13,21 +16,24 @@ const router = createBrowserRouter([
     errorElement: <NotFound />,
     children: [
       {
-        path: '/',
+        path: '/', // Обновите путь по необходимости
         element: <DetailsPerson />,
       },
-
       {
-        path: '/*',
+        path: '*',
+        element: <NotFound />, // Используйте NotFound для не определенных маршрутов
       },
     ],
   },
 ]);
 
+// Рендеринг приложения
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <ThemeProvider>
-      <RouterProvider router={router} />
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider>
+        <RouterProvider router={router} />
+      </ThemeProvider>
+    </Provider>
   </React.StrictMode>
 );

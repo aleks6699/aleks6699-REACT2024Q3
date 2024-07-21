@@ -1,37 +1,39 @@
-import { createSlice, configureStore } from '@reduxjs/toolkit';
+import { configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { starWarsApi } from '../services/dataPersons';
+import { ResponseList } from '../view/page';
 
-const counterSlice = createSlice({
-  name: 'counter',
+const peopleSlice = createSlice({
+  name: 'people',
   initialState: {
-    value: 0,
+    people: {
+      count: 0,
+      next: null || '',
+      previous: null,
+      results: [],
+    },
   },
   reducers: {
-    incremented: (state) => {
-      // Redux Toolkit allows us to write "mutating" logic in reducers. It
-      // doesn't actually mutate the state because it uses the Immer library,
-      // which detects changes to a "draft state" and produces a brand new
-      // immutable state based off those changes
-      state.value += 1;
-    },
-    decremented: (state) => {
-      state.value -= 1;
+    setPeopleData: (
+      state: { people: ResponseList },
+      action: PayloadAction<ResponseList, string>
+    ) => {
+      state.people = action.payload;
     },
   },
 });
 
-export const { incremented, decremented } = counterSlice.actions;
+export const store = configureStore({
+  reducer: {
+    [starWarsApi.reducerPath]: starWarsApi.reducer,
 
-const store = configureStore({
-  reducer: counterSlice.reducer,
+    people: peopleSlice.reducer,
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(starWarsApi.middleware),
 });
 
-// Can still subscribe to the store
-store.subscribe(() => console.log(store.getState()));
+export const { setPeopleData } = peopleSlice.actions;
+export default peopleSlice.reducer;
 
-// Still pass action objects to `dispatch`, but they're created for us
-store.dispatch(incremented());
-// {value: 1}
-store.dispatch(incremented());
-// {value: 2}
-store.dispatch(decremented());
-// {value: 1}
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
