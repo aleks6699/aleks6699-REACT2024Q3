@@ -3,13 +3,14 @@ import { useOutletContext, useSearchParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { removeParamsSearch } from '../../utils/controlsParamsSearch';
 
-interface Person {
+export interface Person {
   name: string;
   height: string;
   mass: string;
   hair_color: string;
   skin_color: string;
   gender: string;
+  url?: string;
 }
 interface ContextValue {
   personDetails: Person;
