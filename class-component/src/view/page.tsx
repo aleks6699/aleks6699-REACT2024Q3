@@ -10,25 +10,22 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setPeopleData, RootState } from '../store/store';
 
 export interface People {
-  url: string;
-  name: string | undefined;
-  results: {
-    name: string;
-    height: string;
-    mass: string;
-    hair_color: string;
-    skin_color: string;
-    gender: string;
-    homeworld?: string;
-    films?: string[];
-    species?: string[];
-    vehicles?: string[];
-    starships?: string[];
-    created?: string;
-    edited?: string;
-    url?: string;
-    id?: string;
-  };
+  name: string;
+  height: string;
+  mass: string;
+  hair_color: string;
+  skin_color: string;
+  gender: string;
+  homeworld?: string;
+  films?: string[];
+  species?: string[];
+  vehicles?: string[];
+  starships?: string[];
+  created?: string;
+  edited?: string;
+  url?: string;
+  id?: string;
+  eye_color?: string;
 }
 export interface ResponseList {
   count: number;
@@ -83,8 +80,6 @@ export function Page() {
     const newPage = event.currentTarget.textContent ?? '1';
     setSearchParams({ search: inputValue, page: newPage });
   };
-
-  if (isFetching) return <Loading />;
 
   return (
     <div className={`wrapper ${theme ? 'light' : 'dark'}`}>

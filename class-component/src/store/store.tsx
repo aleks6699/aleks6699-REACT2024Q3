@@ -48,6 +48,10 @@ const favoritesListSlice = createSlice({
         (item) => item.name !== action.payload
       );
     },
+
+    clearFavorites: (state: { favoritesList: People[] }) => {
+      state.favoritesList = [];
+    },
   },
 });
 
@@ -66,7 +70,8 @@ export const store = configureStore({
 export const { setPeopleData } = peopleSlice.actions;
 export default peopleSlice.reducer;
 
-export const { addFavorite, removeFavorite } = favoritesListSlice.actions;
+export const { addFavorite, removeFavorite, clearFavorites } =
+  favoritesListSlice.actions;
 export const favoritesListReducer = favoritesListSlice.reducer;
 
 export type RootState = ReturnType<typeof store.getState>;

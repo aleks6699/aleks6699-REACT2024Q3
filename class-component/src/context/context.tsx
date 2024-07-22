@@ -12,7 +12,6 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [theme, setTheme] = useState<boolean>(false);
   const toggleTheme = () => setTheme((prevTheme: boolean) => !prevTheme);
-  console.log(theme);
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
