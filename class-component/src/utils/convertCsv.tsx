@@ -1,4 +1,4 @@
-import { People } from '../view/page';
+import { People } from '../App';
 function convertToCSV(items: People[]) {
   const headers = ['Name', 'URL', 'Skin', 'Eye', 'Gender', 'Mass', 'Height'];
   const rows = items.map((item) => [

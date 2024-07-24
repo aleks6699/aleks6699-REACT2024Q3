@@ -9,7 +9,7 @@
   background: radial-gradient(
     circle,
     rgba(2, 0, 36, 1) 0%,
-    rgb(165, 165, 179) 25%,
+    rgb(207, 207, 219) 25%,
     rgb(0, 7, 8) 100%
   );
 }
@@ -18,7 +18,7 @@
     circle,
     rgba(2, 0, 36, 1) 0%,
     rgb(165, 165, 179) 25%,
-    rgb(255, 255, 255) 100%
+    rgb(92, 88, 88) 100%
   );
 }
 .results {
@@ -42,7 +42,7 @@ main {
   justify-content: space-between;
   gap: 20px;
 }
-.main.light .result-item{
+.main.light .result-item {
   border: 3px solid #e9e6e6;
   background-color: #555050;
   color: white;
@@ -59,8 +59,9 @@ main {
   justify-content: space-between;
   align-items: center;
   gap: 10px;
+  font-weight: 600;
 }
 
 .result-item:hover {
-  transform: scale(1.1);
+  transform: scale(1.05);
 }

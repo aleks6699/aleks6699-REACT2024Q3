@@ -1,55 +1,73 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import {
   addParamsSearch,
   removeParamsSearch,
 } from '../utils/controlsParamsSearch';
 
-describe('controlsParamsSearch Utils', () => {
-  it('adds parameters correctly', () => {
-    const originalLocation = { ...window.location };
-    const originalReplaceState = window.history.replaceState;
-
-    // Mock window.location
-    window.location = {
-      ...window.location,
-      search: '?existingParam=123',
-    };
-
-    window.history.replaceState = vi.fn();
-
-    addParamsSearch('456', 'newParam');
-
-    expect(window.history.replaceState).toHaveBeenCalledWith(
-      {},
-      '',
-      '/?existingParam=123&newParam=456'
-    );
-
-    window.location = originalLocation;
-    window.history.replaceState = originalReplaceState;
+describe('URL parameter functions', () => {
+  beforeEach(() => {
+    vi.spyOn(window.history, 'replaceState').mockImplementation(() => {});
+    vi.spyOn(window, 'location', 'get').mockReturnValue({
+      pathname: '/current/path',
+      search: '?existingParam=value',
+    } as Location);
   });
 
-  it('removes parameters correctly', () => {
-    const originalLocation = { ...window.location };
-    const originalReplaceState = window.history.replaceState;
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
 
-    // Mock window.location
-    window.location = {
-      ...window.location,
-      search: '?existingParam=123&removeParam=456',
-    };
+  describe('addParamsSearch', () => {
+    it('should add a parameter to the URL', () => {
+      addParamsSearch('123', 'id');
 
-    window.history.replaceState = vi.fn();
+      expect(window.history.replaceState).toHaveBeenCalledWith(
+        {},
+        '',
+        '/current/path?existingParam=value&id=123'
+      );
+    });
 
-    removeParamsSearch('removeParam');
+    it('should overwrite existing parameter with the same name', () => {
+      addParamsSearch('456', 'existingParam');
 
-    expect(window.history.replaceState).toHaveBeenCalledWith(
-      {},
-      '',
-      '/?existingParam=123'
-    );
+      expect(window.history.replaceState).toHaveBeenCalledWith(
+        {},
+        '',
+        '/current/path?existingParam=456'
+      );
+    });
+  });
 
-    window.location = originalLocation;
-    window.history.replaceState = originalReplaceState;
+  describe('removeParamsSearch', () => {
+    it('should remove a parameter from the URL', () => {
+      vi.spyOn(window, 'location', 'get').mockReturnValue({
+        pathname: '/current/path',
+        search: '?existingParam=value',
+      } as Location);
+
+      removeParamsSearch('existingParam');
+
+      expect(window.history.replaceState).toHaveBeenCalledWith(
+        {},
+        '',
+        '/current/path?'
+      );
+    });
+
+    it('should not affect URL if parameter is not present', () => {
+      vi.spyOn(window, 'location', 'get').mockReturnValue({
+        pathname: '/current/path',
+        search: '?existingParam=value',
+      } as Location);
+
+      removeParamsSearch('nonExistentParam');
+
+      expect(window.history.replaceState).toHaveBeenCalledWith(
+        {},
+        '',
+        '/current/path?existingParam=value'
+      );
+    });
   });
 });

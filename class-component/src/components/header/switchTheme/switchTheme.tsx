@@ -13,7 +13,7 @@ export default function SwitchTheme() {
         checked={theme}
       />
       <label htmlFor="btn">
-        <span className="thumb" />
+        <span data-testid="thumb" className="thumb" />
       </label>
     </button>
   );

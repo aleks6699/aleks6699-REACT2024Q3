@@ -16,6 +16,7 @@ interface ContextValue {
   personDetails: Person;
   selectedPersonId: string;
 }
+
 export default function DetailsPerson() {
   const { personDetails, selectedPersonId }: ContextValue = useOutletContext();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -24,7 +25,6 @@ export default function DetailsPerson() {
   const searchTerm = searchParams.get('search');
   const pageCurrent = searchParams.get('page');
   const details = searchParams.get('details');
-  console.log(personDetails);
 
   useEffect(() => {
     if (details !== selectedPersonId) {

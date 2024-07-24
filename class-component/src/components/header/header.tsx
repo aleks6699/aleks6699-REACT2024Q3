@@ -14,7 +14,7 @@ interface HeaderProps {
 export default function Header({ inputValue, onInput, onClick }: HeaderProps) {
   const { theme } = useTheme();
   return (
-    <div className={`header ${theme ? 'light' : 'dark'}`}>
+    <div id="header" className={`header ${theme ? 'light' : 'dark'}`}>
       <div className="inner-search">
         <InputSearch value={inputValue} onInput={onInput} />
         <Button onClick={onClick} />

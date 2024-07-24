@@ -1,8 +1,7 @@
 import { configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { starWarsApi } from '../services/dataPersons';
-import { ResponseList, People } from '../view/page';
-
-const peopleSlice = createSlice({
+import { ResponseList, People } from '../App';
+export const peopleSlice = createSlice({
   name: 'people',
   initialState: {
     people: {
@@ -22,7 +21,7 @@ const peopleSlice = createSlice({
   },
 });
 
-const favoritesListSlice = createSlice({
+export const favoritesListSlice = createSlice({
   name: 'favoritesList',
   initialState: {
     favoritesList: [],
