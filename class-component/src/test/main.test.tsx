@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createMemoryRouter, RouterProvider } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from '../store/store';
 import { ThemeProvider } from '../context/context';
@@ -8,26 +8,28 @@ import { App } from '../App';
 import NotFound from '../components/not-found/not-found';
 import DetailsPerson from '../components/details-person/details-person';
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <App />,
-    errorElement: <NotFound />,
-    children: [
+describe('Main Application', () => {
+  const setup = (initialEntries = ['/']) => {
+    const routes = [
       {
         path: '/',
-        element: <DetailsPerson />,
+        element: <App />,
+        errorElement: <NotFound />,
+        children: [
+          {
+            path: '/',
+            element: <DetailsPerson />,
+          },
+          {
+            path: '*',
+            element: <NotFound />,
+          },
+        ],
       },
-      {
-        path: '*',
-        element: <NotFound />,
-      },
-    ],
-  },
-]);
+    ];
 
-describe('Main Application', () => {
-  it('renders without crashing and contains main elements', () => {
+    const router = createMemoryRouter(routes, { initialEntries });
+
     render(
       <Provider store={store}>
         <ThemeProvider>
@@ -35,23 +37,31 @@ describe('Main Application', () => {
         </ThemeProvider>
       </Provider>
     );
+  };
+
+  it('renders without crashing and contains main elements', () => {
+    setup();
 
     expect(screen.getByRole('button', { name: /search/i })).toBeInTheDocument();
     expect(screen.getByPlaceholderText('Search')).toBeInTheDocument();
   });
 
   it('renders NotFound component on invalid route', () => {
+    const routes = [
+      {
+        path: '*',
+        element: <NotFound />,
+      },
+    ];
+
+    const router = createMemoryRouter(routes, {
+      initialEntries: ['/invalid-route'],
+    });
+
     render(
       <Provider store={store}>
         <ThemeProvider>
-          <RouterProvider
-            router={createBrowserRouter([
-              {
-                path: '*',
-                element: <NotFound />,
-              },
-            ])}
-          />
+          <RouterProvider router={router} />
         </ThemeProvider>
       </Provider>
     );
@@ -60,13 +70,7 @@ describe('Main Application', () => {
   });
 
   it('handles search button click', () => {
-    render(
-      <Provider store={store}>
-        <ThemeProvider>
-          <RouterProvider router={router} />
-        </ThemeProvider>
-      </Provider>
-    );
+    setup();
 
     const searchButton = screen.getByRole('button', { name: /search/i });
     fireEvent.click(searchButton);

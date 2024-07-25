@@ -21,6 +21,18 @@ export const peopleSlice = createSlice({
   },
 });
 
+export const detailsPersonSlice = createSlice({
+  name: 'detailsPerson',
+  initialState: {
+    personDetails: {} as People,
+  },
+  reducers: {
+    setSelectedPerson: (state, action: PayloadAction<People>) => {
+      state.personDetails = action.payload;
+    },
+  },
+});
+
 export const favoritesListSlice = createSlice({
   name: 'favoritesList',
   initialState: {
@@ -61,10 +73,16 @@ export const store = configureStore({
     people: peopleSlice.reducer,
 
     favoritesList: favoritesListSlice.reducer,
+
+    detailsPerson: detailsPersonSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(starWarsApi.middleware),
 });
+
+export const { setSelectedPerson } = detailsPersonSlice.actions;
+
+export const detailsPersonReducer = detailsPersonSlice.reducer;
 
 export const { setPeopleData } = peopleSlice.actions;
 export default peopleSlice.reducer;

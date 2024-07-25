@@ -18,6 +18,7 @@ import {
   RootState,
   AppDispatch,
   removeFavorite,
+  setSelectedPerson,
 } from '../../store/store';
 import Flyout from '../flyout/flyout';
 import Loading from '../loading/loading';
@@ -49,6 +50,7 @@ export function Main({ results, clickPagination, activePage }: MainProps) {
       (item: People) => item.url !== undefined && getId(item.url) === id
     );
   }
+  dispatch(setSelectedPerson(personDetails as People));
 
   const totalPages = Math.ceil(results.count / 10).toString();
 
