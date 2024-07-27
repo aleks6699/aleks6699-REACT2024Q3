@@ -1,5 +1,6 @@
 import { FormEvent } from 'react';
-import './input-search.css';
+import styles from './input-search.module.css';
+import useTheme from '../../../hooks/useTheme';
 
 type InputSearchProps = {
   value?: string;
@@ -7,9 +8,10 @@ type InputSearchProps = {
 };
 
 export default function InputSearch({ value, onInput }: InputSearchProps) {
+  const { theme } = useTheme();
   return (
     <input
-      className="input-search"
+      className={`${styles.input_search} ${theme ? styles.light : ''}`}
       type="text"
       placeholder="Search"
       value={value}

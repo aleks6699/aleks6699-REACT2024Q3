@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { ResponseList } from '../App';
+import { ResponseList } from '../view/App';
 import { peopleSlice } from '../store/store';
 
 describe('peopleSlice', () => {

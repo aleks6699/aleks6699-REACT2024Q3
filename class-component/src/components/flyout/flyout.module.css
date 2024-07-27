@@ -14,12 +14,12 @@
   transform: translateX(0);
 }
 
-.flyout.flyout-hidden {
+
+.flyout.flyout_hidden {
   opacity: 0;
   transform: translateX(1000px);
 }
-
-main.light .flyout {
+.light .flyout {
   background-color: #e9e6e6;
   border: 3px solid #180404;
   color: black;
@@ -31,7 +31,7 @@ main.light .flyout {
   top: -40px;
   width: 80px;
   height: 80px;
-  background-image: url('../R2-D2.png');
+  background-image: url('../../../public/R2-D2.png');
   display: block;
   background-size: contain;
   background-repeat: no-repeat;
@@ -44,15 +44,15 @@ main.light .flyout {
   font-weight: 600;
 }
 
-.inner-flyout {
+.inner_flyout {
   display: flex;
   flex-direction: column;
   gap: 10px;
   align-items: center;
 }
 
-.flyout-clear,
-.flyout-download {
+.flyout_clear,
+.flyout_download {
   background-color: #180404;
   border: 3px solid #e9e6e6;
   color: white;
@@ -62,21 +62,21 @@ main.light .flyout {
   transition: all 0.5s ease-in-out;
 }
 
-.main.light .flyout-clear,
-.main.light .flyout-download {
+.light .flyout_clear,
+.light .flyout_download {
   background-color: #e9e6e6;
   border: 3px solid #180404;
   color: black;
 }
 
-.flyout-clear:hover,
-.flyout-download:hover {
+.flyout_clear:hover,
+.flyout_download:hover {
   background-color: #e9e6e6;
   border: 3px solid #180404;
   color: black;
 }
-.main.light .flyout-clear:hover,
-.main.light .flyout-download:hover {
+.light .flyout_clear:hover,
+.light .flyout_download:hover {
   background-color: #180404;
   border: 3px solid #e9e6e6;
   color: white;

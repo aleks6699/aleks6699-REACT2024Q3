@@ -6,7 +6,7 @@
   flex-wrap: wrap;
 }
 
-.page-button {
+.page_button {
   padding: 10px 20px;
   border: 1px solid #ccc;
   background-color: #fff;
@@ -16,24 +16,24 @@
   border-radius: 15px;
 }
 
-.page-button:hover {
+.page_button:hover {
   background-color: #f0f0f0;
 }
 
-.page-button.active {
+.page_button.active {
   background-color: #0a1d31;
   color: #fff;
 }
 
-.main.light .page-button {
+.light .page_button {
   background-color: #0a1d31;
   color: #fff;
 }
-.main.light .page-button:hover {
+.light .page_button:hover {
   background-color: #0a1d31;
   color: #fff;
 }
-.main.light .page-button.active {
+.light .page_button.active {
   background-color: #f0f0f0;
   color: #0a1d31;
 }

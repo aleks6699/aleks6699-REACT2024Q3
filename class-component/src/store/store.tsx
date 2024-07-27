@@ -1,6 +1,6 @@
 import { configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { starWarsApi } from '../services/dataPersons';
-import { ResponseList, People } from '../App';
+import { ResponseList, People } from '../view/App';
 export const peopleSlice = createSlice({
   name: 'people',
   initialState: {

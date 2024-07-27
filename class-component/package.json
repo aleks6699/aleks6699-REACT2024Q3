@@ -12,10 +12,12 @@
     "format:fix": "prettier --write .",
     "format": "prettier --check .",
     "prepare": "cd .. && husky class-component/.husky",
-    "test": "vitest run --coverage"
+    "test": "vitest run --coverage",
+    "next": "next dev"
   },
   "dependencies": {
     "@reduxjs/toolkit": "https://pkg.csb.dev/reduxjs/redux-toolkit/commit/beb818cb/@reduxjs/toolkit",
+    "next": "^14.2.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-redux": "^9.1.2",
@@ -34,7 +36,6 @@
     "@types/react-dom": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "^7.15.0",
     "@typescript-eslint/parser": "^7.15.0",
-    "@vitejs/plugin-react": "^4.3.1",
     "@vitest/coverage-v8": "^2.0.2",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
@@ -51,8 +52,8 @@
     "msw": "^2.3.4",
     "prettier": "3.3.2",
     "react-test-renderer": "^18.3.1",
+    "sass": "^1.77.8",
     "typescript": "^5.2.2",
-    "vite": "^5.3.1",
     "vitest": "^2.0.4"
   }
 }

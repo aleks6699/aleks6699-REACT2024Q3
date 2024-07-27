@@ -1,10 +1,17 @@
-.details-person {
+.details_person {
   position: relative;
   padding: 10px;
   border-radius: 10px;
   background-color: #555050;
   height: 100%;
   color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 300px;
+  width: 100%;
+
 }
 .cross {
   position: absolute;
@@ -17,7 +24,7 @@
   border: none;
 }
 
-.main.light .details-person {
+.light.details_person {
   background-color: #e9e6e6;
   color: #180404;
 }

@@ -1,0 +1,23 @@
+.header {
+  display: flex;
+  justify-content: space-evenly;
+  background-color: #818181;
+  padding: 15px 0;
+  position: fixed;
+  top: 0;
+  z-index: 10;
+  width: 100%;
+  left: 0;
+  right: 0;
+  align-items: center;
+}
+
+.header.light {
+  background-color: #e9e6e6;
+}
+
+.inner_search {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}

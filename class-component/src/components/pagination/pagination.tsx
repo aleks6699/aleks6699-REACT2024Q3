@@ -1,4 +1,5 @@
-import './pagination.css';
+import styles from './pagination.module.css';
+import useTheme from '../../hooks/useTheme';
 
 interface PaginationProps {
   pages: string;
@@ -18,7 +19,7 @@ export default function Pagination({
     pageButtons.push(
       <button
         key={i}
-        className={`page-button ${activePage === (i + 1).toString() ? 'active' : ''}`}
+        className={`${styles.page_button} ${activePage === (i + 1).toString() ? styles.active : ''}`}
         onClick={(event) => clickPagination && clickPagination(event)}
       >
         {i + 1}
@@ -26,12 +27,16 @@ export default function Pagination({
     );
   }
 
+  const { theme } = useTheme();
+
   return (
     <>
       {pageCount === 0 ? (
         <></>
       ) : (
-        <div className="pagination">{pageButtons}</div>
+        <div className={styles.pagination + ` ${theme ? styles.light : ''}`}>
+          {pageButtons}
+        </div>
       )}
     </>
   );

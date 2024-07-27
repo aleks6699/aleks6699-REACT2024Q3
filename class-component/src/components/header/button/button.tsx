@@ -1,11 +1,17 @@
-import './button.css';
+import styles from './button.module.css';
+import useTheme from '../../../hooks/useTheme';
 type ButtonProps = {
   onClick?: () => void | undefined;
 };
 
 export default function Button({ onClick }: ButtonProps) {
+  const { theme } = useTheme();
   return (
-    <button className="button" type="button" onClick={onClick}>
+    <button
+      className={`${styles.button} ${theme ? styles.light : ''}`}
+      type="button"
+      onClick={onClick}
+    >
       Search
     </button>
   );

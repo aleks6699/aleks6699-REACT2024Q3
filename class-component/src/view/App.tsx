@@ -1,14 +1,14 @@
-import './App.css';
+// import './App.css';
 import React, { FormEvent, useState, useEffect } from 'react';
-import Header from './components/header/header';
-import { Main } from './components/main/result';
-import Loading from './components/loading/loading';
-import { useSearchParams } from 'react-router-dom';
-import useLocalStorageAndFetch from './hooks/useLocalStorageAndFetch';
-import useTheme from './hooks/useTheme';
-import { useGetPeopleQuery } from './services/dataPersons';
+import Header from '../components/header/header';
+import { Main } from '../components/main/result';
+import Loading from '../components/loading/loading';
+import useLocalStorageAndFetch from '../hooks/useLocalStorageAndFetch';
+import { useRouter } from 'next/router';
+import useTheme from '../hooks/useTheme';
+import { useGetPeopleQuery } from '../services/dataPersons';
 import { useSelector, useDispatch } from 'react-redux';
-import { setPeopleData, RootState } from './store/store';
+import { setPeopleData, RootState } from '../store/store';
 
 export interface People {
   name: string;
@@ -35,27 +35,27 @@ export interface ResponseList {
   results: People[];
 }
 
-export function App() {
+export default function Home() {
   const { theme } = useTheme();
   const [inputValue, setInputValue] = useState<string>('');
-  const [searchParams, setSearchParams] = useSearchParams({
-    search: '',
-    page: '1',
-  });
-
-  const currentPage = searchParams.get('page') || '1';
-  const searchTerm = searchParams.get('search') || '';
+  const router = useRouter();
+  const { search = '', page = '1' } = router.query;
 
   const { data, isFetching } = useGetPeopleQuery({
-    searchTerm,
-    currentPage,
+    searchTerm: search as string,
+    currentPage: page as string,
   });
 
   useLocalStorageAndFetch(
-    currentPage,
-    searchTerm,
+    page as string,
+    search as string,
     setInputValue,
-    setSearchParams
+    (newParams) => {
+      router.push({
+        pathname: router.pathname,
+        query: { ...router.query, ...Object.fromEntries(newParams) },
+      });
+    }
   );
 
   const dispatch = useDispatch();
@@ -73,17 +73,17 @@ export function App() {
   };
 
   const handleClick = () => {
-    setSearchParams({ search: inputValue, page: '1' });
+    router.push({ query: { search: inputValue, page: '1' } });
   };
 
   const clickPagination = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     const newPage = event.currentTarget.textContent ?? '1';
-    setSearchParams({ search: inputValue, page: newPage });
+    router.push({ query: { search: inputValue, page: newPage } });
   };
 
   return (
-    <div className={`wrapper ${theme ? 'light' : 'dark'}`}>
+    <div className={`wrapper ${theme ? 'light' : ''}`}>
       <Header
         inputValue={inputValue}
         onInput={handleInput}
@@ -92,7 +92,7 @@ export function App() {
       {isFetching && <Loading />}
       <Main
         results={peopleData}
-        activePage={currentPage}
+        activePage={page as string}
         clickPagination={clickPagination}
       />
     </div>

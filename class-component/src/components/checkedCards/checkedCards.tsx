@@ -1,16 +1,16 @@
-import './checked.css';
+import styles from './checked.module.css';
 type Props = {
   onCange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   checked: boolean;
 };
 export const MagicCheckbox = ({ onCange, checked }: Props) => {
   return (
-    <div className="wrapper-checkbox">
-      <label className="textLabel">
+    <div className={styles.wrapper_checkbox}>
+      <label className={styles.textLabel}>
         Selected card
         <input
           type="checkbox"
-          className="magicCheckbox"
+          className={styles.magicCheckbox}
           onChange={onCange}
           checked={checked}
         />

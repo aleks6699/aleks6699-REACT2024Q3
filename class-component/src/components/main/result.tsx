@@ -1,9 +1,11 @@
-import './main.css';
+import styles from './main.module.css';
 import Pagination from '../pagination/pagination';
 import { useState } from 'react';
-import { Outlet } from 'react-router-dom';
-import { ResponseList, People } from '../../App';
+import { ResponseList, People } from '../../view/App';
+import DetailsPerson from '../details-person/details-person';
 import getId from '../../utils/getId';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import {
   addParamsSearch,
@@ -38,6 +40,8 @@ export function Main({ results, clickPagination, activePage }: MainProps) {
       skip: !selectedPersonId,
     }
   );
+  const router = useRouter();
+  const { search, page } = router.query;
 
   const dispatch = useDispatch<AppDispatch>();
   const favoritesList = useSelector(
@@ -88,10 +92,10 @@ export function Main({ results, clickPagination, activePage }: MainProps) {
   }
 
   return (
-    <main className={`main ${theme ? 'light' : 'dark'}`}>
-      <div className="wrapper-main">
+    <main className={styles.main + ` ${theme ? styles.light : ''}`}>
+      <div className={styles.wrapper_main}>
         <div
-          className="results"
+          className={styles.results}
           onClick={closeDetailsCard}
           aria-hidden="true"
           role="button"
@@ -104,7 +108,7 @@ export function Main({ results, clickPagination, activePage }: MainProps) {
 
             return (
               <div
-                className="result-item"
+                className={styles.result_item}
                 key={index}
                 data-id={id}
                 onClick={(event) => clickCard(event)}
@@ -112,17 +116,28 @@ export function Main({ results, clickPagination, activePage }: MainProps) {
                 role="button"
                 tabIndex={0}
               >
-                <img
-                  src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`}
-                  alt={result.name}
-                />
-                <h2>{result.name}</h2>
-                <MagicCheckbox
-                  onCange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                    changeFavorite(event, result)
-                  }
-                  checked={isFavorite}
-                />
+                <Link
+                  className={styles.link_result}
+                  href={{
+                    pathname: '/',
+                    query: {
+                      search,
+                      page,
+                    },
+                  }}
+                >
+                  <img
+                    src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`}
+                    alt={result.name}
+                  />
+                  <h2>{result.name}</h2>
+                  <MagicCheckbox
+                    onCange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                      changeFavorite(event, result)
+                    }
+                    checked={isFavorite}
+                  />
+                </Link>
               </div>
             );
           })}
@@ -130,7 +145,10 @@ export function Main({ results, clickPagination, activePage }: MainProps) {
         {isFetching ? (
           <Loading />
         ) : selectedPersonId && personDetails ? (
-          <Outlet context={{ personDetails, selectedPersonId }} />
+          <DetailsPerson
+            personDetails={personDetails}
+            selectedPersonId={selectedPersonId}
+          />
         ) : null}
       </div>
 

@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import convertToCSV from '../utils/convertCsv';
-import { People } from '../App';
+import { People } from '../view/App';
 
 const peopleData: People[] = [
   {
