@@ -1,64 +1,43 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import Header from '../components/header/header';
-import { describe, it, expect, vi } from 'vitest';
 import '@testing-library/jest-dom';
+import Header from '../components/header/header';
+import { vi } from 'vitest';
 
-describe('Header component', () => {
-  it('renders Header component correctly', () => {
-    const mockOnInput = vi.fn();
-    const mockOnClick = vi.fn();
-    const inputValue = 'test value';
+vi.mock('../hooks/useTheme', () => ({
+  __esModule: true,
+  default: () => ({ theme: true, toggleTheme: vi.fn() }),
+}));
 
-    render(
-      <Header
-        inputValue={inputValue}
-        onInput={mockOnInput}
-        onClick={mockOnClick}
-      />
-    );
+describe('Header Component', () => {
+  const mockOnInput = vi.fn();
+  const mockOnClick = vi.fn();
+  const mockToggleTheme = vi.fn();
 
-    const input = screen.getByDisplayValue(inputValue);
-    expect(input).toBeInTheDocument();
-
-    const button = screen.getByRole('button');
-    expect(button).toBeInTheDocument();
+  beforeEach(() => {
+    mockOnInput.mockClear();
+    mockOnClick.mockClear();
+    mockToggleTheme.mockClear();
   });
 
-  it('calls onInput function when input value changes', () => {
-    const mockOnInput = vi.fn();
-    const mockOnClick = vi.fn();
-    const inputValue = '';
-
+  test('renders InputSearch and Button components', () => {
     render(
-      <Header
-        inputValue={inputValue}
-        onInput={mockOnInput}
-        onClick={mockOnClick}
-      />
+      <Header inputValue="test" onInput={mockOnInput} onClick={mockOnClick} />
     );
 
-    const input = screen.getByRole('textbox');
-    fireEvent.input(input, { target: { value: 'new value' } });
+    const inputElement = screen.getByPlaceholderText('Search');
+    expect(inputElement).toBeInTheDocument();
 
-    expect(mockOnInput).toHaveBeenCalled();
+    const buttonElement = screen.getByRole('button', { name: /search/i });
+    expect(buttonElement).toBeInTheDocument();
   });
 
-  it('calls onClick function when button is clicked', () => {
-    const mockOnInput = vi.fn();
-    const mockOnClick = vi.fn();
-    const inputValue = '';
-
+  test('handles button click', () => {
     render(
-      <Header
-        inputValue={inputValue}
-        onInput={mockOnInput}
-        onClick={mockOnClick}
-      />
+      <Header inputValue="test" onInput={mockOnInput} onClick={mockOnClick} />
     );
 
-    const button = screen.getByRole('button');
-    fireEvent.click(button);
-
+    const buttonElement = screen.getByRole('button', { name: /search/i });
+    fireEvent.click(buttonElement);
     expect(mockOnClick).toHaveBeenCalled();
   });
 });

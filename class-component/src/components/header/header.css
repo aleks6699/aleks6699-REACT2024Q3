@@ -1,9 +1,7 @@
 .header {
   display: flex;
-  justify-content: center;
-  gap: 10px;
-  background-color: #e9e6e6 ;
-  width: 100%;
+  justify-content: space-evenly;
+  background-color: #818181;
   padding: 15px 0;
   position: fixed;
   top: 0;
@@ -11,4 +9,32 @@
   width: 100%;
   left: 0;
   right: 0;
+  align-items: center;
+}
+
+.header.light {
+  background-color: #e9e6e6;
+}
+
+.header.light .input-search {
+  background-color: #979191;
+  border: 2px solid #464242;
+  color: #fff;
+}
+.header.light .input-search::placeholder {
+  color: #fff;
+}
+.header.light .button {
+  color: #464242;
+  background-color: #fff;
+}
+
+.header.light .button:hover {
+  color: #856666;
+  background-color: rgb(235, 213, 18);
+}
+
+.inner-search {
+  display: flex;
+  gap: 10px;
 }

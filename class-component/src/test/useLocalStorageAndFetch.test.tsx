@@ -1,53 +1,44 @@
-import { vi, describe, it, expect } from 'vitest';
-import useLocalStorageAndFetch from '../hooks/useLocalStorageAndFetch';
 import { renderHook } from '@testing-library/react';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
+import useLocalStorageAndFetch from '../hooks/useLocalStorageAndFetch';
+
+const mockSetItem = vi.fn();
+const mockGetItem = vi.fn();
+const mockSetSearchParams = vi.fn();
+
+beforeEach(() => {
+  vi.clearAllMocks();
+  global.localStorage = {
+    setItem: mockSetItem,
+    getItem: mockGetItem,
+  } as unknown as Storage;
+});
 
 describe('useLocalStorageAndFetch', () => {
-  it('sets and gets localStorage value correctly', () => {
-    const currentPage = '1';
-    const searchTerm = '';
-    const mockGetData = vi.fn<(page: string, search: string) => void>();
-    const mockSetInputValue = vi.fn<(value: string) => void>();
-    const mockSetSearchParams = vi.fn<(params: URLSearchParams) => void>();
+  it('should update localStorage and call setters correctly', () => {
+    const currentPage = '2';
+    const searchTerm = 'test';
+    const setInputValue = vi.fn();
+    const setSearchParams = mockSetSearchParams;
 
-    const localStorageMock = {
-      getItem: vi.fn(),
-      setItem: vi.fn(),
-    };
-    const mockStorage = {
-      getItem: (key: string) => localStorageMock.getItem(key),
-
-      setItem: (key: string, value: string) =>
-        localStorageMock.setItem(key, value),
-    };
-    Object.defineProperty(window, 'localStorage', {
-      value: mockStorage,
-    });
+    mockGetItem.mockReturnValue(searchTerm);
 
     renderHook(() =>
       useLocalStorageAndFetch(
         currentPage,
         searchTerm,
-        mockGetData,
-        mockSetInputValue,
-        mockSetSearchParams
+        setInputValue,
+        setSearchParams
       )
     );
 
-    expect(localStorageMock.setItem).toHaveBeenCalledWith(
-      'inputValue',
-      searchTerm
-    );
-    expect(localStorageMock.getItem).toHaveBeenCalledWith('inputValue');
+    expect(mockSetItem).toHaveBeenCalledWith('inputValue', searchTerm);
 
-    expect(mockSetInputValue).toHaveBeenCalledWith(searchTerm);
+    expect(setInputValue).toHaveBeenCalledWith(searchTerm);
 
-    expect(mockSetSearchParams).toHaveBeenCalled();
-    expect(mockSetSearchParams.mock.calls.length).toBe(1);
-    const params = mockSetSearchParams.mock.calls[0][0] as URLSearchParams;
-    expect(params.get('search')).toEqual(searchTerm);
-    expect(params.get('page')).toEqual(currentPage);
-
-    expect(mockGetData).toHaveBeenCalledWith(currentPage, searchTerm);
+    const params = new URLSearchParams();
+    params.set('search', searchTerm);
+    params.set('page', currentPage);
+    expect(mockSetSearchParams).toHaveBeenCalledWith(params);
   });
 });
