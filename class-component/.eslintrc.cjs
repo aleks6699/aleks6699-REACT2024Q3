@@ -7,9 +7,10 @@ module.exports = {
     'plugin:react-hooks/recommended',
     'plugin:jsx-a11y/recommended',
     'plugin:@typescript-eslint/recommended',
+    'plugin:@next/next/recommended',
     'plugin:prettier/recommended',
   ],
-  ignorePatterns: ['dist', '.eslintrc.cjs', "next.config.mjs"],
+  ignorePatterns: ['dist', '.eslintrc.cjs', 'next.config.js'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaFeatures: {
@@ -46,6 +47,6 @@ module.exports = {
     'react-hooks/exhaustive-deps': 'off',
     'jsx-a11y/label-has-associated-control': 'off',
 
-    'react-refresh/only-export-components':'off',
+    'react-refresh/only-export-components': 'off',
   },
 };

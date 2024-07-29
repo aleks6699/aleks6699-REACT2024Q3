@@ -4,7 +4,7 @@ import { createMemoryRouter, RouterProvider } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from '../store/store';
 import { ThemeProvider } from '../context/context';
-import { App } from '../view/App';
+import { App } from '../view/pages';
 import NotFound from '../components/not-found/not-found';
 import DetailsPerson from '../components/details-person/details-person';
 

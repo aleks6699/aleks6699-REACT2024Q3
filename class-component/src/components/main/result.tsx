@@ -1,10 +1,12 @@
 import styles from './main.module.css';
 import Pagination from '../pagination/pagination';
-import { useState } from 'react';
-import { ResponseList, People } from '../../view/App';
+import { useEffect, useState } from 'react';
+import { ResponseList, People } from '../../view/pages';
 import DetailsPerson from '../details-person/details-person';
 import getId from '../../utils/getId';
 import Link from 'next/link';
+import Image from 'next/image';
+
 import { useRouter } from 'next/router';
 
 import {
@@ -54,7 +56,11 @@ export function Main({ results, clickPagination, activePage }: MainProps) {
       (item: People) => item.url !== undefined && getId(item.url) === id
     );
   }
-  dispatch(setSelectedPerson(personDetails as People));
+  useEffect(() => {
+    if (personDetails) {
+      dispatch(setSelectedPerson(personDetails));
+    }
+  }, [dispatch, personDetails]);
 
   const totalPages = Math.ceil(results.count / 10).toString();
 
@@ -126,9 +132,13 @@ export function Main({ results, clickPagination, activePage }: MainProps) {
                     },
                   }}
                 >
-                  <img
+                  <Image
                     src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`}
                     alt={result.name}
+                    width={150}
+                    height={200}
+                    priority
+                    style={{ width: '100%', height: 'auto' }}
                   />
                   <h2>{result.name}</h2>
                   <MagicCheckbox

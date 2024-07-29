@@ -35,7 +35,7 @@ export interface ResponseList {
   results: People[];
 }
 
-export default function Home() {
+export default function Pages() {
   const { theme } = useTheme();
   const [inputValue, setInputValue] = useState<string>('');
   const router = useRouter();
