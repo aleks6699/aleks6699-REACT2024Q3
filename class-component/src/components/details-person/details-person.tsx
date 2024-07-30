@@ -4,6 +4,7 @@ import Image from 'next/image';
 import styles from './details-person.module.css';
 import { removeParamsSearch } from '../../utils/controlsParamsSearch';
 import useTheme from '../../hooks/useTheme';
+import Loading from '../../components/loading/loading';
 
 export interface Person {
   name: string;
@@ -27,23 +28,26 @@ export default function DetailsPerson({
   const { theme } = useTheme();
   const router = useRouter();
   const [showDetails, setShowDetails] = useState(true);
+  const [loading, setLoading] = useState(false); // Добавлено состояние загрузки
 
   const { search, page, details } = router.query;
   useEffect(() => {
     if (details !== selectedPersonId) {
-      router.push({
-        query: {
-          search: search || '',
-          page: page || '1',
-          details: selectedPersonId,
-        },
-      });
+      setLoading(true);
+      router
+        .push({
+          query: {
+            search: search || '',
+            page: page || '1',
+            details: selectedPersonId,
+          },
+        })
+        .finally(() => setLoading(false));
     }
   }, [details, selectedPersonId, search, page, router]);
 
   const handleClick = () => {
     setShowDetails(!showDetails);
-
     removeParamsSearch('details');
   };
 
@@ -53,7 +57,9 @@ export default function DetailsPerson({
 
   return (
     <>
-      {showDetails ? (
+      {loading ? (
+        <Loading />
+      ) : showDetails ? (
         <div
           className={styles.details_person + ` ${theme ? styles.light : ''}`}
         >

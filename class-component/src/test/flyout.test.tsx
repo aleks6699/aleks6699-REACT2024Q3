@@ -3,6 +3,7 @@ import '@testing-library/jest-dom';
 import Flyout from '../components/flyout/flyout';
 import { vi } from 'vitest';
 import { RootState } from '../store/store';
+import { ThemeProvider } from '../context/context';
 
 interface FavoritesState {
   favoritesList: {
@@ -32,7 +33,13 @@ vi.mock('react-redux', () => ({
 
 describe('Flyout Component', () => {
   test('renders Flyout component and checks download link', () => {
-    render(<Flyout />);
+    render(
+      <ThemeProvider>
+        {' '}
+        {/* Оборачиваем в ThemeProvider */}
+        <Flyout />
+      </ThemeProvider>
+    );
 
     const downloadLink = screen.getByText('Download');
     expect(downloadLink).toBeInTheDocument();

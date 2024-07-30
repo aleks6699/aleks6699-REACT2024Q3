@@ -1,7 +1,7 @@
 import styles from './main.module.css';
 import Pagination from '../pagination/pagination';
 import { useEffect, useState } from 'react';
-import { ResponseList, People } from '../../view/pages';
+import { ResponseList, People } from '../../pages/index';
 import DetailsPerson from '../details-person/details-person';
 import getId from '../../utils/getId';
 import Link from 'next/link';
@@ -15,7 +15,6 @@ import {
 } from '../../utils/controlsParamsSearch';
 import useTheme from '../../hooks/useTheme';
 import { MagicCheckbox } from '../checkedCards/checkedCards';
-import { useGetPersonByIdQuery } from '../../services/dataPersons';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   addFavorite,
@@ -25,25 +24,26 @@ import {
   setSelectedPerson,
 } from '../../store/store';
 import Flyout from '../flyout/flyout';
-import Loading from '../loading/loading';
 
 export interface MainProps {
   results: ResponseList;
   clickPagination?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   activePage?: string;
+  personDetails?: People | null;
 }
 
-export function Main({ results, clickPagination, activePage }: MainProps) {
+export function Main({
+  results,
+  clickPagination,
+  activePage,
+  personDetails,
+}: MainProps) {
   const [selectedPersonId, setSelectedPersonId] = useState<string | null>(null);
   const { theme } = useTheme();
-  const { data: personDetails, isFetching } = useGetPersonByIdQuery(
-    selectedPersonId,
-    {
-      skip: !selectedPersonId,
-    }
-  );
+
   const router = useRouter();
   const { search, page } = router.query;
+  console.log(router);
 
   const dispatch = useDispatch<AppDispatch>();
   const favoritesList = useSelector(
@@ -91,7 +91,7 @@ export function Main({ results, clickPagination, activePage }: MainProps) {
       addParamsSearch(id, 'details');
     }
   }
-
+  console.log(personDetails, selectedPersonId);
   function closeDetailsCard(event: React.MouseEvent): void {
     event.stopPropagation();
     removeParamsSearch('details');
@@ -129,6 +129,7 @@ export function Main({ results, clickPagination, activePage }: MainProps) {
                     query: {
                       search,
                       page,
+                      details: id,
                     },
                   }}
                 >
@@ -152,9 +153,7 @@ export function Main({ results, clickPagination, activePage }: MainProps) {
             );
           })}
         </div>
-        {isFetching ? (
-          <Loading />
-        ) : selectedPersonId && personDetails ? (
+        {selectedPersonId && personDetails ? (
           <DetailsPerson
             personDetails={personDetails}
             selectedPersonId={selectedPersonId}

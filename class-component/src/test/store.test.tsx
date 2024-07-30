@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { ResponseList } from '../view/pages';
+import { ResponseList } from '../pages';
 import { peopleSlice } from '../store/store';
 
 describe('peopleSlice', () => {
