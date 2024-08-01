@@ -1,3 +1,4 @@
+'use client';
 import styles from './button.module.css';
 import useTheme from '../../../hooks/useTheme';
 type ButtonProps = {

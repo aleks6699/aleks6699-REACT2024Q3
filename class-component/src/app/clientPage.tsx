@@ -1,14 +1,14 @@
-// import './App.css';
+'use client';
+
 import React, { FormEvent, useState, useEffect } from 'react';
-import Header from '../components/header/header';
-import { Main } from '../components/main/result';
-import Loading from '../components/loading/loading';
-import useLocalStorageAndFetch from '../hooks/useLocalStorageAndFetch';
-import { useRouter } from 'next/router';
-import useTheme from '../hooks/useTheme';
-import { useGetPeopleQuery } from '../services/dataPersons';
+import { useRouter } from 'next/navigation';
 import { useSelector, useDispatch } from 'react-redux';
 import { setPeopleData, RootState } from '../store/store';
+import Header from '../components/header/header';
+import Main from '../components/main/result';
+import useLocalStorageAndFetch from '../hooks/useLocalStorageAndFetch';
+import useTheme from '../hooks/useTheme';
+import Loading from './loading';
 
 export interface People {
   name: string;
@@ -28,6 +28,7 @@ export interface People {
   id?: string;
   eye_color?: string;
 }
+
 export interface ResponseList {
   count: number;
   next: string | null;
@@ -35,28 +36,25 @@ export interface ResponseList {
   results: People[];
 }
 
-export default function Home() {
+export interface HomeProps {
+  data: ResponseList;
+  personDetails: People | null;
+  search: string;
+  page: string;
+}
+
+function ClientPage({ data, personDetails, search, page }: HomeProps) {
   const { theme } = useTheme();
-  const [inputValue, setInputValue] = useState<string>('');
+  const [inputValue, setInputValue] = useState<string>(search);
+  const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
-  const { search = '', page = '1' } = router.query;
 
-  const { data, isFetching } = useGetPeopleQuery({
-    searchTerm: search as string,
-    currentPage: page as string,
+  useLocalStorageAndFetch(page, search, setInputValue, (newParams) => {
+    setLoading(true);
+    const searchParams = new URLSearchParams(newParams);
+    router.push(`/?${searchParams.toString()}`);
+    setLoading(false);
   });
-
-  useLocalStorageAndFetch(
-    page as string,
-    search as string,
-    setInputValue,
-    (newParams) => {
-      router.push({
-        pathname: router.pathname,
-        query: { ...router.query, ...Object.fromEntries(newParams) },
-      });
-    }
-  );
 
   const dispatch = useDispatch();
   const peopleData = useSelector((state: RootState) => state.people.people);
@@ -73,13 +71,23 @@ export default function Home() {
   };
 
   const handleClick = () => {
-    router.push({ query: { search: inputValue, page: '1' } });
+    setLoading(true);
+    const searchParams = new URLSearchParams({ search: inputValue, page: '1' });
+    console.log('Searching with params:', searchParams.toString());
+    router.push(`/?${searchParams.toString()}`);
+    setLoading(false);
   };
 
   const clickPagination = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     const newPage = event.currentTarget.textContent ?? '1';
-    router.push({ query: { search: inputValue, page: newPage } });
+    setLoading(true);
+    const searchParams = new URLSearchParams({
+      search: inputValue,
+      page: newPage,
+    });
+    router.push(`/?${searchParams.toString()}`);
+    setLoading(false);
   };
 
   return (
@@ -89,12 +97,15 @@ export default function Home() {
         onInput={handleInput}
         onClick={handleClick}
       />
-      {isFetching && <Loading />}
+      {loading && <Loading />}
       <Main
         results={peopleData}
-        activePage={page as string}
+        activePage={page}
         clickPagination={clickPagination}
+        personDetails={personDetails}
       />
     </div>
   );
 }
+
+export default ClientPage;

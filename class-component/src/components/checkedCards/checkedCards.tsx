@@ -1,9 +1,10 @@
+'use client';
 import styles from './checked.module.css';
 type Props = {
   onCange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   checked: boolean;
 };
-export const MagicCheckbox = ({ onCange, checked }: Props) => {
+const MagicCheckbox = ({ onCange, checked }: Props) => {
   return (
     <div className={styles.wrapper_checkbox}>
       <label className={styles.textLabel}>
@@ -18,3 +19,4 @@ export const MagicCheckbox = ({ onCange, checked }: Props) => {
     </div>
   );
 };
+export default MagicCheckbox;

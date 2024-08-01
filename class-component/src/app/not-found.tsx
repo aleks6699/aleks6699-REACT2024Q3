@@ -1,4 +1,3 @@
-import './not-found.module.css';
 export default function NotFound() {
   return (
     <div className="not-found">

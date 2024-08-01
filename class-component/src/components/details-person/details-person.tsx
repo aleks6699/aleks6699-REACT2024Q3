@@ -1,9 +1,12 @@
-import { useRouter } from 'next/router';
+'use client';
+
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import styles from './details-person.module.css';
 import { removeParamsSearch } from '../../utils/controlsParamsSearch';
 import useTheme from '../../hooks/useTheme';
+import Loading from '../../app/loading';
 
 export interface Person {
   name: string;
@@ -26,24 +29,29 @@ export default function DetailsPerson({
 }: ContextValue) {
   const { theme } = useTheme();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [showDetails, setShowDetails] = useState(true);
+  const [loading, setLoading] = useState(false);
 
-  const { search, page, details } = router.query;
   useEffect(() => {
-    if (details !== selectedPersonId) {
-      router.push({
-        query: {
-          search: search || '',
-          page: page || '1',
-          details: selectedPersonId,
-        },
-      });
-    }
-  }, [details, selectedPersonId, search, page, router]);
+    const currentSearch = searchParams.get('search') || '';
+    const currentPage = searchParams.get('page') || '1';
+    const currentDetails = searchParams.get('details');
 
+    if (currentDetails !== selectedPersonId) {
+      setLoading(true);
+      const updatedSearchParams = new URLSearchParams({
+        search: currentSearch,
+        page: currentPage,
+        details: selectedPersonId,
+      }).toString();
+
+      router.push(`?${updatedSearchParams}`);
+      setLoading(false);
+    }
+  }, [selectedPersonId, searchParams, router]);
   const handleClick = () => {
     setShowDetails(!showDetails);
-
     removeParamsSearch('details');
   };
 
@@ -53,17 +61,21 @@ export default function DetailsPerson({
 
   return (
     <>
-      {showDetails ? (
+      {loading ? (
+        <Loading />
+      ) : showDetails ? (
         <div
-          className={styles.details_person + ` ${theme ? styles.light : ''}`}
+          className={`${styles.details_person} ${theme ? styles.light : ''}`}
         >
           <Image
             src={`https://starwars-visualguide.com/assets/img/characters/${selectedPersonId}.jpg`}
             alt={personDetails.name}
-            layout="intrinsic"
+            priority
             width={300}
-            height={300}
+            height={400}
+            style={{ width: '100%', height: 'auto' }}
           />
+
           <button className={styles.cross} onClick={handleClick}>
             <Image src="/cross.png" alt="cross" width={60} height={60} />
           </button>

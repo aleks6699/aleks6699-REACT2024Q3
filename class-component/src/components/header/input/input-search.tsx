@@ -1,3 +1,4 @@
+'use client';
 import { FormEvent } from 'react';
 import styles from './input-search.module.css';
 import useTheme from '../../../hooks/useTheme';

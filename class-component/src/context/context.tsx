@@ -1,3 +1,5 @@
+'use client';
+
 import { createContext } from 'react';
 import { useState } from 'react';
 export interface IThemeContext {
@@ -6,8 +8,7 @@ export interface IThemeContext {
 }
 
 export const ThemeContext = createContext<IThemeContext | undefined>(undefined);
-
-export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
+const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [theme, setTheme] = useState<boolean>(false);
@@ -19,3 +20,5 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
     </ThemeContext.Provider>
   );
 };
+
+export default ThemeProvider;

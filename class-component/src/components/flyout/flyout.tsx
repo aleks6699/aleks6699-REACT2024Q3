@@ -1,3 +1,4 @@
+'use client';
 import styles from './flyout.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, clearFavorites } from '../../store/store';

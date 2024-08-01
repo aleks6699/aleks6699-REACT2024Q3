@@ -1,19 +1,20 @@
+'use client';
+
 import styles from './main.module.css';
 import Pagination from '../pagination/pagination';
-import { useState } from 'react';
-import { ResponseList, People } from '../../view/App';
+import { useEffect, useState } from 'react';
+import { People, ResponseList } from '../../app/clientPage';
 import DetailsPerson from '../details-person/details-person';
 import getId from '../../utils/getId';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-
+import Image from 'next/image';
+import { useSearchParams } from 'next/navigation';
 import {
   addParamsSearch,
   removeParamsSearch,
 } from '../../utils/controlsParamsSearch';
 import useTheme from '../../hooks/useTheme';
-import { MagicCheckbox } from '../checkedCards/checkedCards';
-import { useGetPersonByIdQuery } from '../../services/dataPersons';
+import MagicCheckbox from '../checkedCards/checkedCards';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   addFavorite,
@@ -23,25 +24,26 @@ import {
   setSelectedPerson,
 } from '../../store/store';
 import Flyout from '../flyout/flyout';
-import Loading from '../loading/loading';
 
 export interface MainProps {
   results: ResponseList;
   clickPagination?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   activePage?: string;
+  personDetails?: People | null;
 }
 
-export function Main({ results, clickPagination, activePage }: MainProps) {
+export default function Main({
+  results,
+  clickPagination,
+  activePage,
+  personDetails,
+}: MainProps) {
   const [selectedPersonId, setSelectedPersonId] = useState<string | null>(null);
   const { theme } = useTheme();
-  const { data: personDetails, isFetching } = useGetPersonByIdQuery(
-    selectedPersonId,
-    {
-      skip: !selectedPersonId,
-    }
-  );
-  const router = useRouter();
-  const { search, page } = router.query;
+
+  const searchParams = useSearchParams();
+  const search = searchParams.get('search') || '';
+  const page = searchParams.get('page') || '1';
 
   const dispatch = useDispatch<AppDispatch>();
   const favoritesList = useSelector(
@@ -54,7 +56,12 @@ export function Main({ results, clickPagination, activePage }: MainProps) {
       (item: People) => item.url !== undefined && getId(item.url) === id
     );
   }
-  dispatch(setSelectedPerson(personDetails as People));
+
+  useEffect(() => {
+    if (personDetails) {
+      dispatch(setSelectedPerson(personDetails));
+    }
+  }, [dispatch, personDetails]);
 
   const totalPages = Math.ceil(results.count / 10).toString();
 
@@ -123,12 +130,17 @@ export function Main({ results, clickPagination, activePage }: MainProps) {
                     query: {
                       search,
                       page,
+                      details: id,
                     },
                   }}
                 >
-                  <img
+                  <Image
                     src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`}
                     alt={result.name}
+                    width={150}
+                    height={200}
+                    priority
+                    style={{ width: '100%', height: 'auto' }}
                   />
                   <h2>{result.name}</h2>
                   <MagicCheckbox
@@ -142,9 +154,7 @@ export function Main({ results, clickPagination, activePage }: MainProps) {
             );
           })}
         </div>
-        {isFetching ? (
-          <Loading />
-        ) : selectedPersonId && personDetails ? (
+        {selectedPersonId && personDetails ? (
           <DetailsPerson
             personDetails={personDetails}
             selectedPersonId={selectedPersonId}

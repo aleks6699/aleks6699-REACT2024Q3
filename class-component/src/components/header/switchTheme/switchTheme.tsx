@@ -1,3 +1,4 @@
+'use client';
 import useTheme from '../../../hooks/useTheme';
 
 export default function SwitchTheme() {

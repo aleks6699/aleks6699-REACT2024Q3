@@ -1,3 +1,4 @@
+'use client';
 export function addParamsSearch(id: string, name: string) {
   const params = new URLSearchParams(window.location.search);
   params.set(name, id);
