@@ -16,6 +16,7 @@ export default defineConfig({
         '**/node_modules/**',
         '**/dist/**',
         '**/build/**',
+        'src/test/**',
       ],
     },
     css: false,

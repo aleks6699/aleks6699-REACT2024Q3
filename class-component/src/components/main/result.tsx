@@ -99,7 +99,10 @@ export default function Main({
   }
 
   return (
-    <main className={styles.main + ` ${theme ? styles.light : ''}`}>
+    <main
+      className={styles.main + ` ${theme ? styles.light : ''}`}
+      data-testid="main-component"
+    >
       <div className={styles.wrapper_main}>
         <div
           className={styles.results}
