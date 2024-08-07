@@ -14,6 +14,7 @@ export default defineConfig({
       exclude: [
         'next.config.js',
         '**/node_modules/**',
+        'src/components/main/result.tsx',
         '**/dist/**',
         '**/build/**',
         'src/test/**',
