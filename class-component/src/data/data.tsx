@@ -1,5 +1,3 @@
-// src/services/api.ts
-
 export async function fetchPeopleData(search: string, page: string) {
   const res = await fetch(
     `https://swapi.dev/api/people/?search=${search}&page=${page}`

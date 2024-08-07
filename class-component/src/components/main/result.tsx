@@ -54,7 +54,6 @@ export function Main({ results, clickPagination, activePage }: MainProps) {
       (item: People) => item.url !== undefined && getId(item.url) === id
     );
   }
-  // dispatch(setSelectedPerson(personDetails as People));
 
   const totalPages = Math.ceil(results.count / 10).toString();
 

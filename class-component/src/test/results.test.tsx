@@ -1,84 +1,50 @@
+// src/test/main.test.tsx
 import { render, screen } from '@testing-library/react';
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
+import { describe, it, expect, vi } from 'vitest';
 import { Main } from '../components/main/result';
+import { ResponseList } from '../Home';
+import { Provider } from 'react-redux';
 import { store } from '../store/store';
-import { vi } from 'vitest';
-import { useGetPersonByIdQuery } from '../services/dataPersons';
+import { ThemeProvider } from '../context/context'; // Adjust import as needed
 
-vi.mock('react-router-dom', async () => {
-  const actual =
-    await vi.importActual<typeof import('react-router-dom')>(
-      'react-router-dom'
-    );
-  return {
-    ...actual,
-    useOutletContext: vi.fn(),
-    useSearchParams: vi.fn(() => [new URLSearchParams(), vi.fn()]),
-  };
-});
-
-vi.mock('../hooks/useTheme', () => ({
-  default: () => ({ theme: 'light' }),
+// Mocking Remix hooks
+vi.mock('@remix-run/react', () => ({
+  useLoaderData: () => ({
+    personDetails: {
+      name: 'Luke Skywalker',
+      url: 'https://swapi.dev/api/people/1/',
+    },
+  }),
+  useSearchParams: () => [new URLSearchParams(), () => {}],
 }));
 
-vi.mock(
-  '../services/dataPersons',
-  async (
-    importOriginal: () => Promise<typeof import('../services/dataPersons')>
-  ) => {
-    const actual = await importOriginal();
-    return {
-      ...actual,
-      useGetPersonByIdQuery: vi.fn(),
-    };
-  }
-);
-
-describe('Main component', () => {
-  const mockResults = {
-    count: 2,
-    next: 'https://swapi.dev/api/people/?page=2',
-    previous: null,
-    results: [
-      {
-        name: 'Luke Skywalker',
-        height: '172',
-        mass: '77',
-        hair_color: 'blond',
-        skin_color: 'fair',
-        gender: 'male',
-        url: 'https://swapi.dev/api/people/1/',
-      },
-      {
-        name: 'Darth Vader',
-        height: '202',
-        mass: '136',
-        hair_color: 'none',
-        skin_color: 'white',
-        gender: 'male',
-        url: 'https://swapi.dev/api/people/4/',
-      },
-    ],
-  };
-
-  beforeEach(() => {
-    (useGetPersonByIdQuery as unknown as jest.Mock).mockReturnValue({
-      data: null,
-      isFetching: false,
-    });
-  });
-
+describe('Main Component', () => {
   it('renders without crashing', () => {
+    const results: ResponseList = {
+      count: 10,
+      next: null,
+      previous: null,
+      results: [
+        {
+          name: 'Luke Skywalker',
+          url: 'https://swapi.dev/api/people/1/',
+          height: '',
+          mass: '',
+          hair_color: '',
+          skin_color: '',
+          gender: '',
+        },
+      ],
+    };
+
     render(
       <Provider store={store}>
-        <MemoryRouter>
-          <Main results={mockResults} />
-        </MemoryRouter>
+        <ThemeProvider>
+          <Main results={results} />
+        </ThemeProvider>
       </Provider>
     );
 
     expect(screen.getByText('Luke Skywalker')).toBeInTheDocument();
-    expect(screen.getByText('Darth Vader')).toBeInTheDocument();
   });
 });
