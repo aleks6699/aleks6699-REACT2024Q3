@@ -1,5 +1,5 @@
 import './details-person.css';
-import { useOutletContext, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from '@remix-run/react';
 import { useState, useEffect } from 'react';
 import { removeParamsSearch } from '../../utils/controlsParamsSearch';
 
@@ -17,8 +17,10 @@ interface ContextValue {
   selectedPersonId: string;
 }
 
-export default function DetailsPerson() {
-  const { personDetails, selectedPersonId }: ContextValue = useOutletContext();
+export default function DetailsPerson({
+  personDetails,
+  selectedPersonId,
+}: ContextValue) {
   const [searchParams, setSearchParams] = useSearchParams();
   const [showDetails, setShowDetails] = useState(true);
 
@@ -29,8 +31,6 @@ export default function DetailsPerson() {
   useEffect(() => {
     if (details !== selectedPersonId) {
       setSearchParams({
-        search: searchTerm || '',
-        page: pageCurrent || '1',
         details: selectedPersonId,
       });
     }

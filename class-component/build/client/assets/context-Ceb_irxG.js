@@ -1,0 +1,1 @@
+import{r as e,j as m}from"./store-CdRNTWRs.js";const n=e.createContext(void 0),c=({children:t})=>{const[o,s]=e.useState(!1),r=()=>s(a=>!a);return m.jsx(n.Provider,{value:{theme:o,toggleTheme:r},children:t})};export{c as T,n as a};

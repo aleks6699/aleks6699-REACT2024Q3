@@ -1,19 +1,20 @@
-import { render, screen, fireEvent } from '@testing-library/react';
-import { vi, describe, it, expect } from 'vitest';
+import { render, fireEvent } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import Button from '../components/header/button/button';
 
-describe('Button', () => {
-  it('renders button with correct text', () => {
-    render(<Button />);
-    const buttonElement = screen.getByRole('button', { name: /Search/i });
+import { vi, test, expect } from 'vitest';
+
+describe('Button component', () => {
+  test('renders button with text "Search"', () => {
+    const { getByText } = render(<Button />);
+    const buttonElement = getByText(/search/i);
     expect(buttonElement).toBeInTheDocument();
   });
 
-  it('calls onClick function when button is clicked', () => {
+  test('calls onClick handler when clicked', () => {
     const handleClick = vi.fn();
-    render(<Button onClick={handleClick} />);
-    const buttonElement = screen.getByRole('button', { name: /Search/i });
-
+    const { getByText } = render(<Button onClick={handleClick} />);
+    const buttonElement = getByText(/search/i);
     fireEvent.click(buttonElement);
     expect(handleClick).toHaveBeenCalledTimes(1);
   });

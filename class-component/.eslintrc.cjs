@@ -45,9 +45,10 @@ module.exports = {
     'jsx-a11y/anchor-is-valid': 'warn',
     'react-hooks/exhaustive-deps': 'off',
     'jsx-a11y/label-has-associated-control': 'off',
+    '@typescript-eslint/no-unused-vars': 'off',
 
     'react-refresh/only-export-components': [
-      'warn',
+      'off',
       { allowConstantExport: true },
     ],
   },

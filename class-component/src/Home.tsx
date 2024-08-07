@@ -2,13 +2,16 @@ import './App.css';
 import React, { FormEvent, useState, useEffect } from 'react';
 import Header from './components/header/header';
 import { Main } from './components/main/result';
-import Loading from './components/loading/loading';
-import { useSearchParams } from 'react-router-dom';
+import {
+  useSearchParams,
+  useLoaderData,
+  useNavigation,
+} from '@remix-run/react';
 import useLocalStorageAndFetch from './hooks/useLocalStorageAndFetch';
 import useTheme from './hooks/useTheme';
-import { useGetPeopleQuery } from './services/dataPersons';
 import { useSelector, useDispatch } from 'react-redux';
 import { setPeopleData, RootState } from './store/store';
+import Loading from './components/loading/loading';
 
 export interface People {
   name: string;
@@ -35,21 +38,20 @@ export interface ResponseList {
   results: People[];
 }
 
-export function App() {
+export function Home() {
   const { theme } = useTheme();
+  const { data }: { data: ResponseList } = useLoaderData();
   const [inputValue, setInputValue] = useState<string>('');
-  const [searchParams, setSearchParams] = useSearchParams({
-    search: '',
-    page: '1',
-  });
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [loading, setLoading] = useState(true);
+
+  const { state } = useNavigation();
 
   const currentPage = searchParams.get('page') || '1';
   const searchTerm = searchParams.get('search') || '';
 
-  const { data, isFetching } = useGetPeopleQuery({
-    searchTerm,
-    currentPage,
-  });
+  const dispatch = useDispatch();
+  const peopleData = useSelector((state: RootState) => state.people.people);
 
   useLocalStorageAndFetch(
     currentPage,
@@ -57,16 +59,19 @@ export function App() {
     setInputValue,
     setSearchParams
   );
-
-  const dispatch = useDispatch();
-  const peopleData = useSelector((state: RootState) => state.people.people);
+  useEffect(() => {
+    if (state === 'loading') {
+      setLoading(true);
+    } else {
+      setLoading(false);
+    }
+  }, [state]);
 
   useEffect(() => {
     if (data) {
       dispatch(setPeopleData(data));
     }
   }, [data, dispatch]);
-
   const handleInput = (event: FormEvent) => {
     event.preventDefault();
     setInputValue((event.target as HTMLInputElement).value.trim());
@@ -89,7 +94,9 @@ export function App() {
         onInput={handleInput}
         onClick={handleClick}
       />
-      {isFetching && <Loading />}
+
+      {loading && <Loading />}
+
       <Main
         results={peopleData}
         activePage={currentPage}

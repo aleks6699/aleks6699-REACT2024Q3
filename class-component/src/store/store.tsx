@@ -1,6 +1,5 @@
 import { configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { starWarsApi } from '../services/dataPersons';
-import { ResponseList, People } from '../App';
+import { ResponseList, People } from '../Home';
 export const peopleSlice = createSlice({
   name: 'people',
   initialState: {
@@ -17,6 +16,18 @@ export const peopleSlice = createSlice({
       action: PayloadAction<ResponseList, string>
     ) => {
       state.people = action.payload;
+    },
+  },
+});
+
+export const detailsPersonSlice = createSlice({
+  name: 'detailsPerson',
+  initialState: {
+    personDetails: {} as People,
+  },
+  reducers: {
+    setSelectedPerson: (state, action: PayloadAction<People>) => {
+      state.personDetails = action.payload;
     },
   },
 });
@@ -56,15 +67,17 @@ export const favoritesListSlice = createSlice({
 
 export const store = configureStore({
   reducer: {
-    [starWarsApi.reducerPath]: starWarsApi.reducer,
-
     people: peopleSlice.reducer,
 
     favoritesList: favoritesListSlice.reducer,
+
+    detailsPerson: detailsPersonSlice.reducer,
   },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(starWarsApi.middleware),
 });
+
+export const { setSelectedPerson } = detailsPersonSlice.actions;
+
+export const detailsPersonReducer = detailsPersonSlice.reducer;
 
 export const { setPeopleData } = peopleSlice.actions;
 export default peopleSlice.reducer;
