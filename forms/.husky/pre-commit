@@ -1,0 +1,2 @@
+cd forms
+npm run lint 
