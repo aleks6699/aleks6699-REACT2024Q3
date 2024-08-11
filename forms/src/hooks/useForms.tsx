@@ -2,6 +2,10 @@ import { useState, useRef, FormEvent } from 'react';
 import * as yup from 'yup';
 import UserSchema from '../validation/validation';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { createUserData } from '../store/store';
+import IForms from '../types/types';
+import imageUploaded from '../utils/converterBase64.tsx';
 
 export const useFormRefs = () => {
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
@@ -20,6 +24,8 @@ export const useFormRefs = () => {
 
   const navigate = useNavigate();
 
+  const dispatch = useDispatch();
+
   const handleInput = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsValid(false);
@@ -28,7 +34,7 @@ export const useFormRefs = () => {
   const createUser = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const formData = {
+    const formData: IForms = {
       name: nameRef.current?.value,
       age: ageRef.current?.value,
       email: emailRef.current?.value,
@@ -44,12 +50,22 @@ export const useFormRefs = () => {
       profilePicture: profilePictureRef.current?.files?.[0] ?? null,
       country: countryRef.current?.value,
     };
-    console.log(formData);
+
     try {
       setIsValid(false);
       await UserSchema.validate(formData, { abortEarly: false });
       setErrors({});
+      const imageBase64 = await imageUploaded(
+        profilePictureRef.current?.files?.[0] ?? null
+      );
+
       console.log('Form is valid');
+      dispatch(
+        createUserData({
+          ...formData,
+          profilePicture: imageBase64 as FileReader | File | null,
+        })
+      );
       navigate('/');
     } catch (error) {
       const validationErrors: Record<string, string> = {};
