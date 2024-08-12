@@ -9,10 +9,10 @@ const countriesSlice = createSlice({
 });
 const formsSlice = createSlice({
   name: 'countries',
-  initialState: { forms: {} as IForms },
+  initialState: { forms: [] as IForms[] },
   reducers: {
     createUserData: (state, action: PayloadAction<IForms>) => {
-      state.forms = action.payload;
+      state.forms.push(action.payload);
     },
   },
 });

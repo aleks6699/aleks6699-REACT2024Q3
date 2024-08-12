@@ -1,6 +1,15 @@
 export default function showPasswordStrangth(password: string) {
   if (password === '0') {
-    return null;
+    return (
+      <>
+        <div className="password-strength-bar hidden">
+          <p></p>
+          <p></p>
+          <p></p>
+        </div>
+        <p className="password-strength-text">The password strength </p>
+      </>
+    );
   } else if ('0' < password && password <= '2') {
     return (
       <>

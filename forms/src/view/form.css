@@ -1,4 +1,5 @@
-.form-uncontrolled {
+.form-uncontrolled,
+.form-controlled {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -7,13 +8,22 @@
   width: 100%;
   max-width: 500px;
   padding: 15px;
-  border: 2px solid #ccc;
+
   border-radius: 15px;
-  background-color: #f9f9f9;
 }
 
+.form-uncontrolled {
+  background-color: #f9f9f9;
+  border: 2px solid #ccc;
+}
 
-.form-uncontrolled label {
+.form-controlled {
+  background-color: #ddeeec;
+  border: 2px solid #79e79c;
+}
+
+.form-uncontrolled label,
+.form-controlled label {
   font-size: 18px;
   font-weight: 600;
   color: #5e5656;
@@ -21,7 +31,8 @@
   width: 100%;
   text-transform: uppercase;
 }
-.form-uncontrolled input {
+.form-uncontrolled input,
+.form-controlled input {
   width: 100%;
   padding: 5px;
   border: 2px solid #ccc;
@@ -44,7 +55,7 @@
 }
 .error {
   color: red;
-  font-size: 14px;  
+  font-size: 11px;
   text-align: center;
   height: 14px;
   width: 100%;
