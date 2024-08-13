@@ -3,7 +3,7 @@ import PasswordStrength from '../components/password/password';
 import getPasswordValidity from '../utils/getPasswordValidate';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
-import { useFormRefs } from '../hooks/useForms.tsx';
+import { useForm } from '../hooks/useFormUncontrolled.tsx';
 
 export default function FormUncontrolled() {
   const {
@@ -22,7 +22,7 @@ export default function FormUncontrolled() {
     isValid,
     createUser,
     handleInput,
-  } = useFormRefs();
+  } = useForm();
 
   const countries = useSelector(
     (state: RootState) => state.countries.countries
@@ -58,6 +58,7 @@ export default function FormUncontrolled() {
           id="password"
           name="password"
           ref={passwordRef}
+          autoComplete="new-password"
         />
         <p className="error">{errors.password}</p>
         <PasswordStrength
@@ -72,6 +73,7 @@ export default function FormUncontrolled() {
           id="confirm-password"
           name="confirm-password"
           ref={passwordConfirmRef}
+          autoComplete="new-password"
         />
 
         <p className="error">{errors.passwordConfirm}</p>

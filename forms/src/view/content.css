@@ -13,7 +13,6 @@
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 25px;
   justify-content: center;
-
 }
 
 .inner-contact {
@@ -36,9 +35,9 @@
 }
 .text-container {
   align-self: flex-start;
+  text-align: center;
 }
 .text-container p {
-  text-align: center;
   font-size: 16px;
   font-weight: 500;
   color: #5e5656;
@@ -61,5 +60,4 @@
   object-fit: cover;
   border-radius: 10px;
   border: 1px solid #afa6a6;
-
 }

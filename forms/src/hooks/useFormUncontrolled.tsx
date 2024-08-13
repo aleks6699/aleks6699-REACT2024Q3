@@ -1,13 +1,13 @@
 import { useState, useRef, FormEvent } from 'react';
 import * as yup from 'yup';
-import UserSchema from '../validation/validation';
+import UserSchema from '../validation/validation.tsx';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { createUserData } from '../store/store';
-import IForms from '../types/types';
+import { createUserData } from '../store/store.tsx';
+import IForms from '../types/types.tsx';
 import imageUploaded from '../utils/converterBase64.tsx';
 
-export const useFormRefs = () => {
+export const useForm = () => {
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [isValid, setIsValid] = useState<boolean>(false);
   const nameRef = useRef<HTMLInputElement>(null);
