@@ -51,7 +51,6 @@ export const useForm = () => {
         profilePictureRef.current?.files?.[0] ?? null
       );
 
-      console.log('Form is valid');
       dispatch(
         createUserData({
           ...formData,

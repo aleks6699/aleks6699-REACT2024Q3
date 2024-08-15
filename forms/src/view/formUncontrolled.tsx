@@ -19,9 +19,7 @@ export default function FormUncontrolled() {
     countryRef,
     buttonRef,
     errors,
-    isValid,
     createUser,
-    handleInput,
   } = useForm();
 
   const countries = useSelector(
@@ -29,12 +27,7 @@ export default function FormUncontrolled() {
   );
 
   return (
-    <form
-      className="form-uncontrolled"
-      onSubmit={createUser}
-      onInput={handleInput}
-      noValidate
-    >
+    <form className="form-uncontrolled" onSubmit={createUser} noValidate>
       <div className="inner-uncontrolled inner-form">
         <label htmlFor="name">Name:</label>
         <input type="text" id="name" name="name" ref={nameRef} />
@@ -141,12 +134,7 @@ export default function FormUncontrolled() {
         <p className="error">{errors.country}</p>
       </div>
 
-      <button
-        className="btn btn-uncontrolled"
-        type="submit"
-        ref={buttonRef}
-        disabled={isValid}
-      >
+      <button className="btn btn-uncontrolled" type="submit" ref={buttonRef}>
         Submit
       </button>
     </form>
