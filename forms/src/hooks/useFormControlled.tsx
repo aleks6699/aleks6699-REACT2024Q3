@@ -39,7 +39,6 @@ export default function useFormControlled() {
         })
       );
       navigate('/');
-      console.log(data);
     } catch (error) {
       console.error('Error uploading image:', error);
     }

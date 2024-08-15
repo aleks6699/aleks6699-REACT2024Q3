@@ -44,7 +44,6 @@ const UserSchema = yup.object().shape({
     .test('fileFormat', 'The file must be in PNG or JPEG format.', (value) => {
       if (!value || !(value instanceof File)) return false;
       const fileExtension = value.name.split('.').pop()?.toLowerCase();
-      console.log(fileExtension);
       return ['jpeg', 'jpg', 'png'].includes(fileExtension || '');
     })
     .required('Profile picture is required'),

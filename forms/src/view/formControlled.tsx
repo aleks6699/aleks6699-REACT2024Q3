@@ -6,7 +6,7 @@ import useFormControlled from '../hooks/useFormControlled';
 export default function FormControlled() {
   const {
     errors,
-    isValid,
+    // isValid,
     handleSubmit,
     register,
     password,
@@ -121,7 +121,7 @@ export default function FormControlled() {
       <button
         className="btn btn-uncontrolled"
         type="submit"
-        disabled={!isValid}
+        // disabled={!isValid}
       >
         Submit
       </button>

@@ -5,7 +5,6 @@ import './content.css';
 
 export default function Main() {
   const forms = useSelector((state: RootState) => state.forms.forms);
-  console.log(forms);
 
   return (
     <>

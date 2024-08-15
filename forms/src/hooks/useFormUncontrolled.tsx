@@ -1,4 +1,4 @@
-import { useState, useRef, FormEvent } from 'react';
+import { useState, useRef } from 'react';
 import * as yup from 'yup';
 import UserSchema from '../validation/validation.tsx';
 import { useNavigate } from 'react-router-dom';
@@ -9,7 +9,6 @@ import imageUploaded from '../utils/converterBase64.tsx';
 
 export const useForm = () => {
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
-  const [isValid, setIsValid] = useState<boolean>(false);
   const nameRef = useRef<HTMLInputElement>(null);
   const ageRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
@@ -23,13 +22,7 @@ export const useForm = () => {
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   const navigate = useNavigate();
-
   const dispatch = useDispatch();
-
-  const handleInput = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setIsValid(false);
-  };
 
   const createUser = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -52,7 +45,6 @@ export const useForm = () => {
     };
 
     try {
-      setIsValid(false);
       await UserSchema.validate(formData, { abortEarly: false });
       setErrors({});
       const imageBase64 = await imageUploaded(
@@ -79,7 +71,6 @@ export const useForm = () => {
       }
 
       setErrors(validationErrors);
-      setIsValid(true);
     }
   };
 
@@ -97,9 +88,6 @@ export const useForm = () => {
     buttonRef,
     errors,
     setErrors,
-    setIsValid,
-    isValid,
     createUser,
-    handleInput,
   };
 };
