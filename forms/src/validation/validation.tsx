@@ -1,4 +1,5 @@
 import * as yup from 'yup';
+import countries from '../data/dataCountry';
 
 const UserSchema = yup.object().shape({
   name: yup
@@ -48,7 +49,10 @@ const UserSchema = yup.object().shape({
     })
     .required('Profile picture is required'),
 
-  country: yup.string().required('Country is required'),
+  country: yup
+    .string()
+    .oneOf(countries, 'Invalid country')
+    .required('Country is required'),
 });
 export const UserSchemaControlled = yup.object().shape({
   name: yup
@@ -113,7 +117,10 @@ export const UserSchemaControlled = yup.object().shape({
       }
     }),
 
-  country: yup.string().required('Country is required'),
+  country: yup
+    .string()
+    .oneOf(countries, 'Invalid country')
+    .required('Country is required'),
 });
 const SUPPORTED_FORMATS = ['image/jpeg', 'image/jpg', 'image/png'];
 export default UserSchema;
